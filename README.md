@@ -1,317 +1,105 @@
 # Kno.li
 
-Kno.li let's you host portfolios and linkfolios for you, your brand or SaaS with stunning templates. It also includes per-profile analytics, custom domains, customization and cool og images. 
+Host portfolios and linkfolios for yourself, your brand, or your SaaS. Includes per-profile analytics, custom domains, customizable templates, and dynamic OG images.
+
+## Features
+
+- **Portfolios & linkfolios** — Multiple templates with customization (fonts, colors, layout)
+- **Custom domains** — Connect your own domain via Vercel API
+- **Analytics** — Page views, link clicks, geo, and visitor fingerprinting
+- **Billing** — Polar integration for Pro/Ultra plans (checkout, portal, webhooks)
+- **Auth** — Google sign-in via NextAuth
 
 ## Tech Stack
 
-- Bun + Next.js 16 + React 19 + TypeScript
-- Tailwind CSS 4
-- Drizzle ORM + PostgreSQL
-- NextAuth
-- Polar (checkout, portal, webhook billing flows)
+- **Runtime:** Bun
+- **Framework:** Next.js 16, React 19, TypeScript
+- **Styling:** Tailwind CSS 4
+- **Database:** Drizzle ORM + PostgreSQL
+- **Auth:** NextAuth v5
+- **Billing:** Polar (checkout, customer portal, webhooks)
 
 ## Getting Started
 
-### 1) Install dependencies
+### Prerequisites
+
+- [Bun](https://bun.sh)
+- PostgreSQL
+- Polar account (for billing)
+- Vercel account (for custom domains)
+
+### 1. Install dependencies
 
 ```bash
 bun install
 ```
 
-### 2) Configure environment
+### 2. Environment
 
-Create `.env` from `.env.example` and fill values:
+Copy `.env.example` to `.env` and fill in:
 
-```bash
-cp .env.example .env
-```
+| Variable | Description |
+|----------|-------------|
+| `SITE_URL` | App URL (e.g. `http://localhost:3000`) |
+| `DATABASE_URL` | PostgreSQL connection string |
+| `AUTH_SECRET` | NextAuth secret |
+| `AUTH_GITHUB_ID` / `AUTH_GITHUB_SECRET` | GitHub OAuth |
+| `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google OAuth |
+| `POLAR_ACCESS_TOKEN` / `POLAR_WEBHOOK_SECRET` | Polar billing |
+| `NEXT_PUBLIC_POLAR_PRODUCT_*` | Polar product IDs (Pro/Ultra monthly/yearly) |
+| `VERCEL_TOKEN` / `VERCEL_PROJECT_ID` / `VERCEL_TEAM_ID` | Custom domain management |
 
-Environment variables used:
-
-- `SITE_URL`
-- `DATABASE_URL`
-- `AUTH_SECRET`
-- `AUTH_GITHUB_ID`
-- `AUTH_GITHUB_SECRET`
-- `AUTH_GOOGLE_ID`
-- `AUTH_GOOGLE_SECRET`
-- `POLAR_ACCESS_TOKEN`
-- `POLAR_WEBHOOK_SECRET`
-- `NEXT_PUBLIC_POLAR_PRODUCT_PRO_MONTHLY`
-- `NEXT_PUBLIC_POLAR_PRODUCT_PRO_YEARLY`
-- `NEXT_PUBLIC_POLAR_PRODUCT_ULTRA_MONTHLY`
-- `NEXT_PUBLIC_POLAR_PRODUCT_ULTRA_YEARLY`
-
-### 3) Run migrations
+### 3. Database
 
 ```bash
 bun run db:generate
 bun run db:migrate
 ```
 
-### 4) Start development server
+### 4. Run
 
 ```bash
 bun run dev
 ```
 
-App runs at `http://localhost:3000`.
+Open [http://localhost:3000](http://localhost:3000).
 
 ## Scripts
 
-- `bun run dev` - Start local dev server
-- `bun run build` - Build production app
-- `bun run start` - Run built app
-- `bun run lint` - Run ESLint
-- `bun run db:generate` - Generate drizzle migration files
-- `bun run db:migrate` - Run migrations
-- `bun run db:push` - Push schema to database
+| Command | Description |
+|---------|-------------|
+| `bun run dev` | Start dev server |
+| `bun run build` | Production build |
+| `bun run start` | Run production build |
+| `bun run lint` | ESLint |
+| `bun run db:generate` | Generate Drizzle migrations |
+| `bun run db:migrate` | Run migrations |
+| `bun run db:push` | Push schema to DB |
 
-## Path and Folder Structure
+## Project Structure
 
-The tree below reflects the current tracked repository structure.
+```
+app/              # Next.js app router
+├── [username]/   # Profile pages (kno.li/username)
+├── api/          # API routes (auth, apps, analytics, polar, og)
+├── dashboard/    # Dashboard (manage apps, analytics, plan, profile)
+├── login/        # Login
+└── ...
 
-```text
-.
-├── app/
-│   ├── [username]/
-│   │   ├── opengraph-image.tsx
-│   │   └── page.tsx
-│   ├── api/
-│   │   ├── analytics/
-│   │   │   └── collect/
-│   │   │       └── route.ts
-│   │   ├── apps/
-│   │   │   ├── [appId]/
-│   │   │   │   ├── analytics/
-│   │   │   │   │   └── route.ts
-│   │   │   │   ├── content/
-│   │   │   │   │   └── route.ts
-│   │   │   │   ├── domains/
-│   │   │   │   │   ├── [domainId]/
-│   │   │   │   │   │   ├── verify/
-│   │   │   │   │   │   │   └── route.ts
-│   │   │   │   │   │   └── route.ts
-│   │   │   │   │   └── route.ts
-│   │   │   │   └── route.ts
-│   │   │   └── route.ts
-│   │   ├── auth/
-│   │   │   └── [...nextauth]/
-│   │   │       └── route.ts
-│   │   ├── og/
-│   │   │   └── [username]/
-│   │   │       └── route.tsx
-│   │   └── polar/
-│   │       ├── checkout/
-│   │       │   └── route.ts
-│   │       ├── portal/
-│   │       │   └── route.ts
-│   │       └── webhook/
-│   │           └── route.ts
-│   ├── compare/
-│   │   └── page.tsx
-│   ├── dashboard/
-│   │   ├── analytics/
-│   │   │   └── page.tsx
-│   │   ├── create-app/
-│   │   │   └── page.tsx
-│   │   ├── manage-apps/
-│   │   │   ├── [appId]/
-│   │   │   │   ├── edit/
-│   │   │   │   │   └── page.tsx
-│   │   │   │   └── page.tsx
-│   │   │   └── page.tsx
-│   │   ├── plan/
-│   │   │   ├── page.tsx
-│   │   │   └── plan-client.tsx
-│   │   ├── profile/
-│   │   │   └── page.tsx
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── login/
-│   │   ├── login-providers.tsx
-│   │   └── page.tsx
-│   ├── preview/
-│   │   └── page.tsx
-│   ├── templates/
-│   │   └── page.tsx
-│   ├── terms/
-│   │   └── page.tsx
-│   ├── tnc/
-│   │   └── page.tsx
-│   ├── favicon.ico
-│   ├── globals.css
-│   ├── layout.tsx
-│   ├── not-found.tsx
-│   ├── opengraph-image.tsx
-│   └── page.tsx
-├── assets/
-│   └── fonts/
-│       └── GeistPixel-Square.ttf
-├── components/
-│   ├── analytics/
-│   │   └── profile-link-tracker.tsx
-│   ├── dashboard/
-│   │   ├── app-actions-menu.tsx
-│   │   ├── app-domains-card.tsx
-│   │   ├── header.tsx
-│   │   ├── icon-picker.tsx
-│   │   ├── sidebar.tsx
-│   │   ├── stat-card.tsx
-│   │   └── theme-toggle.tsx
-│   ├── errors/
-│   │   ├── index.ts
-│   │   ├── invalid-config.tsx
-│   │   └── not-found.tsx
-│   ├── landing/
-│   │   ├── domains-section.tsx
-│   │   ├── facts-section.tsx
-│   │   ├── github-pill.tsx
-│   │   ├── hero-section.tsx
-│   │   ├── how-to-section.tsx
-│   │   ├── portfolios-section.tsx
-│   │   ├── pricing-section.tsx
-│   │   ├── site-footer.tsx
-│   │   ├── stats-section.tsx
-│   │   ├── templates-section.tsx
-│   │   ├── theme-toggle.tsx
-│   │   └── website-links.tsx
-│   ├── ui/
-│   │   ├── badge.tsx
-│   │   ├── button.tsx
-│   │   ├── calendar.tsx
-│   │   ├── card.tsx
-│   │   ├── dropdown-menu.tsx
-│   │   ├── input.tsx
-│   │   ├── label.tsx
-│   │   ├── multi-step-form.tsx
-│   │   ├── popover.tsx
-│   │   ├── select.tsx
-│   │   └── textarea.tsx
-│   ├── auth-session-provider.tsx
-│   ├── expandable-gallery.tsx
-│   ├── icons.tsx
-│   ├── pricing-card.tsx
-│   ├── status-button.tsx
-│   └── theme-provider.tsx
-├── data/
-│   └── hosted-profiles.json
-├── db/
-│   ├── analytics.ts
-│   ├── apps.ts
-│   ├── auth.ts
-│   ├── billing.ts
-│   ├── enums.ts
-│   └── schema.ts
-├── drizzle/
-│   ├── meta/
-│   │   ├── 0000_snapshot.json
-│   │   ├── 0001_snapshot.json
-│   │   ├── 0002_snapshot.json
-│   │   └── _journal.json
-│   ├── 0000_gigantic_captain_midlands.sql
-│   ├── 0001_schema_rebuild.sql
-│   ├── 0002_app_status_two_values.sql
-│   └── 0003_analytics_dedup.sql
-├── hooks/
-│   └── use-outside-click.ts
-├── lib/
-│   ├── api/
-│   │   └── response.ts
-│   ├── gating/
-│   │   └── plan-features.ts
-│   ├── og/
-│   │   ├── main-site-image.tsx
-│   │   ├── profile-template-image.tsx
-│   │   ├── profile-template-visuals.tsx
-│   │   └── shared.ts
-│   ├── repositories/
-│   │   ├── analytics-repo.ts
-│   │   ├── apps-repo.ts
-│   │   ├── billing-repo.ts
-│   │   └── domains-repo.ts
-│   ├── services/
-│   │   ├── analytics-service.ts
-│   │   ├── apps-service.ts
-│   │   └── domains-service.ts
-│   ├── tracking/
-│   │   ├── geo.ts
-│   │   └── visitor-fingerprint.ts
-│   ├── utils/
-│   │   └── validation.ts
-│   ├── validators/
-│   │   ├── app-schema.ts
-│   │   └── domain-schema.ts
-│   ├── auth.config.ts
-│   ├── auth.ts
-│   ├── constants.ts
-│   ├── current-user.ts
-│   ├── db-errors.ts
-│   ├── db.ts
-│   ├── dummy-profile.ts
-│   ├── hosted-profiles.ts
-│   ├── icons.ts
-│   ├── profile-theme.ts
-│   ├── profile.ts
-│   ├── rate-limit.ts
-│   ├── sfx.ts
-│   ├── types.ts
-│   ├── username-policy.ts
-│   └── utils.ts
-├── public/
-│   ├── flat_logo.png
-│   └── logo.png
-├── templates/
-│   ├── linkfolio/
-│   │   ├── 1/
-│   │   │   ├── banner.png
-│   │   │   ├── dummy.json
-│   │   │   ├── index.tsx
-│   │   │   ├── og-image.tsx
-│   │   │   └── req.ts
-│   │   ├── 2/
-│   │   │   ├── banner.png
-│   │   │   ├── dummy.json
-│   │   │   ├── index.tsx
-│   │   │   ├── og-image.tsx
-│   │   │   └── req.ts
-│   │   └── og-image.tsx
-│   ├── portfolio/
-│   │   ├── 1/
-│   │   │   ├── banner.png
-│   │   │   ├── dummy.json
-│   │   │   ├── index.tsx
-│   │   │   ├── og-image.tsx
-│   │   │   └── req.ts
-│   │   ├── 2/
-│   │   │   ├── banner.png
-│   │   │   ├── dummy.json
-│   │   │   ├── index.tsx
-│   │   │   ├── og-image.tsx
-│   │   │   └── req.ts
-│   │   ├── 3/
-│   │   │   ├── banner.png
-│   │   │   ├── dummy.json
-│   │   │   ├── index.tsx
-│   │   │   └── req.ts
-│   │   └── og-image.tsx
-│   ├── index.ts
-│   └── types.ts
-├── types/
-│   ├── google-identity.d.ts
-│   └── next-auth.d.ts
-├── .gitignore
-├── README.md
-├── bun.lock
-├── components.json
-├── drizzle.config.ts
-├── eslint.config.mjs
-├── main.json
-├── next.config.ts
-├── package-lock.json
-├── package.json
-├── plan.md
-├── postcss.config.mjs
-├── proxy.ts
-├── tsconfig.json
+components/       # React components
+├── dashboard/    # Dashboard UI
+├── landing/      # Landing page sections
+├── ui/           # Shared UI (shadcn)
+└── ...
+
+lib/              # Core logic
+├── services/     # Apps, analytics, domains
+├── repositories/ # Data access
+├── og/           # OG image generation
+├── auth.ts       # NextAuth config
+└── ...
+
+db/               # Drizzle schema & queries
+templates/        # Portfolio & linkfolio templates
+drizzle/          # SQL migrations
 ```

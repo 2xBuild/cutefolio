@@ -126,29 +126,40 @@ export async function findActiveDomainMapping(domain: string): Promise<{
   ownerId: string;
   slug: string;
 } | null> {
-  const [row] = await db
-    .select({
-      appId: appDomains.appId,
-      ownerId: apps.ownerId,
-      slug: apps.slug,
-    })
-    .from(appDomains)
-    .innerJoin(apps, eq(appDomains.appId, apps.id))
-    .where(
-      and(
-        eq(appDomains.domain, domain),
-        eq(appDomains.status, "active"),
-        eq(apps.status, "published"),
-        eq(apps.isPublic, true)
+  const domainsToTry = [domain];
+  if (domain.startsWith("www.")) {
+    domainsToTry.push(domain.slice(4));
+  } else if (domain && !domain.includes("localhost")) {
+    domainsToTry.push(`www.${domain}`);
+  }
+
+  for (const d of domainsToTry) {
+    const [row] = await db
+      .select({
+        appId: appDomains.appId,
+        ownerId: apps.ownerId,
+        slug: apps.slug,
+      })
+      .from(appDomains)
+      .innerJoin(apps, eq(appDomains.appId, apps.id))
+      .where(
+        and(
+          eq(appDomains.domain, d),
+          eq(appDomains.status, "active"),
+          eq(apps.status, "published"),
+          eq(apps.isPublic, true)
+        )
       )
-    )
-    .limit(1);
+      .limit(1);
 
-  if (!row) return null;
+    if (row) {
+      return {
+        appId: row.appId,
+        ownerId: row.ownerId,
+        slug: row.slug as string,
+      };
+    }
+  }
 
-  return {
-    appId: row.appId,
-    ownerId: row.ownerId,
-    slug: row.slug as string,
-  };
+  return null;
 }
