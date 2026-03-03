@@ -1,22 +1,18 @@
 import Link from "next/link";
 
-const GUIDE_URL = "https://github.com/2xbuild/it-iz.me";
-
 export function NotFound() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-4">
-      <h1 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-100">
-        Page not found
+      <h1 className="text-2xl font-semibold text-foreground">
+        Profile not found
       </h1>
-      <p className="text-center text-neutral-600 dark:text-neutral-400">
-        Wanna set up your page?{" "}
+      <p className="text-center text-muted-foreground">
+        Set up your hosted profile and claim a username in{" "}
         <Link
-          href={GUIDE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 hover:text-blue-600"
+          href="/dashboard/create-app"
+          className="text-foreground underline underline-offset-2 hover:text-muted-foreground"
         >
-          Here is the guide
+          dashboard
         </Link>
       </p>
     </div>

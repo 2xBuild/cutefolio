@@ -1,0 +1,112 @@
+{
+  "template": "portfolio-2",
+  "banner_image": "https://i.pinimg.com/1200x/96/91/2d/96912def8db257381c17a9c5157add00.jpg",
+  "img": "https://avatars.githubusercontent.com/u/1024025?v=4",
+  "img_alt": "Linus Torvalds profile photo",
+  "heading_bold": "Linus",
+  "heading_light": "Torvalds",
+  "desc_1": "Engineer, creator, and builder. I design and ship products end-to-end across frontend, backend, and cloud infrastructure.",
+  "tech_stack": [
+    { "iconName": "SI Rust", "visibleName": "Rust" },
+    { "iconName": "SI Go", "visibleName": "Go" },
+    { "iconName": "SI Typescript", "visibleName": "TypeScript" },
+    { "iconName": "SI Docker", "visibleName": "Docker" },
+    { "iconName": "SI Postgresql", "visibleName": "PostgreSQL" }
+  ],
+  "desc_2": "I build fast, accessible experiences and care deeply about product quality.",
+  "desc_3": "Currently open to consulting, collaborations, and product engineering roles.",
+  "cta_buttons": [
+    { "type": "primary", "label": "Resume", "href": "https://example.com/resume.pdf", "icon": "SI FileText" },
+    { "type": "secondary", "label": "Say hello", "href": "mailto:nora@example.com", "icon": "BI Send" }
+  ],
+  "social_links": [
+    { "type": "SI x", "label": "X", "href": "https://x.com/norabuilds" },
+    { "type": "SI Github", "label": "GitHub", "href": "https://github.com/torvalds" },
+    { "type": "SI Linkedin", "label": "LinkedIn", "href": "https://linkedin.com/in/norabennett" },
+    { "type": "BI Envelope", "label": "Mail", "href": "mailto:nora@example.com" }
+  ],
+  "experience": [
+    {
+      "company": "Atlas Quant Labs",
+      "role": "Principal Platform Engineer",
+      "period": "2024 – Present",
+      "location": "New York, NY",
+      "tech": ["Rust", "Kubernetes", "Kafka"],
+      "bullets": [
+        "Built a multi-region event processing backbone handling 400M+ jobs/day",
+        "Cut incident recovery time by 62% through trace-based alerting and runbook automation"
+      ]
+    },
+    {
+      "company": "Cloudframe Systems",
+      "role": "Senior Distributed Systems Engineer",
+      "period": "2021 – 2024",
+      "location": "Austin, TX",
+      "tech": ["Go", "PostgreSQL", "Terraform"],
+      "bullets": [
+        "Designed service-to-service auth and policy enforcement across 120+ microservices",
+        "Migrated core scheduling engine to Go, reducing p95 latency from 480ms to 140ms"
+      ]
+    },
+    {
+      "company": "Northstar Mobility",
+      "role": "Backend Engineer",
+      "period": "2018 – 2021",
+      "location": "Remote",
+      "tech": ["Node.js", "GraphQL", "AWS"],
+      "bullets": [
+        "Shipped dispatch APIs powering same-day routing in 40+ cities",
+        "Implemented canary deployment workflow that dropped rollback rate by 35%"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "FleetPulse Control Center",
+      "description": "Real-time operations dashboard for delivery teams with live vehicle telemetry, SLA breach prediction, and route replay.",
+      "href": "https://example.com/fleetpulse",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80",
+      "tech": ["Next.js", "tRPC", "TimescaleDB", "Mapbox"]
+    },
+    {
+      "title": "LedgerShield",
+      "description": "Audit-ready financial data lake with immutable event logs, anomaly detection, and compliance evidence exports.",
+      "href": "https://example.com/ledgershield",
+      "image": "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1400&q=80",
+      "tech": ["React", "Go", "ClickHouse", "OpenTelemetry"]
+    }
+  ],
+  "blogs": [
+    {
+      "title": "Scaling Side Projects Without Burning Out",
+      "description": "A beginner-friendly setup that balances velocity with security.",
+      "href": "https://blog.example.com/ssh-right-way",
+      "date": "Mar 2024",
+      "tags": ["productivity", "founder-life", "systems"]
+    },
+    {
+      "title": "Designing APIs That Teams Actually Enjoy Using",
+      "description": "A practical intro to retrieval-augmented generation and real use-cases.",
+      "href": "https://blog.example.com/what-is-rag",
+      "date": "Jan 2024",
+      "tags": ["api-design", "developer-experience", "architecture"]
+    }
+  ],
+  "meeting_link": {
+    "label": "Book via Calendly / Cal.com",
+    "href": "https://calendly.com/norabuilds/intro-call"
+  },
+  "theme": {
+    "colors": {
+      "bg": "#09090b",
+      "text": "#fafafa",
+      "muted": "#a1a1aa",
+      "accent": "#f4f4f5",
+      "border": "#27272a"
+    },
+    "fonts": {
+      "body": "\"Inter\", sans-serif",
+      "heading": "\"Space Grotesk\", sans-serif"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "template": "portfolio-3",
+  "img": "https://api.dicebear.com/7.x/avataaars/svg?seed=portfolio3",
+  "img_alt": "Profile photo",
+  "heading_bold": "Hello, I am Maya",
+  "heading_light": "JavaScript Engineer",
+  "desc_1": "I build products for developers and startups.",
+  "tech_stack": [
+    { "iconName": "SI Javascript", "visibleName": "JavaScript" },
+    { "iconName": "SI Typescript", "visibleName": "TypeScript" },
+    { "iconName": "SI React", "visibleName": "React" },
+    { "iconName": "SI Nodedotjs", "visibleName": "Node.js" }
+  ],
+  "desc_2": "I like shipping small improvements every week.",
+  "desc_3": "Open to freelance and full-time roles.",
+  "cta_buttons": [
+    { "type": "primary", "label": "Resume", "href": "https://example.com/resume.pdf" },
+    { "type": "secondary", "label": "Email me", "href": "mailto:maya@example.com" }
+  ],
+  "social_links": [
+    { "type": "SI Github", "label": "GitHub", "href": "https://github.com/maya" },
+    { "type": "SI Linkedin", "label": "LinkedIn", "href": "https://linkedin.com/in/maya" },
+    { "type": "BI Envelope", "label": "Email", "href": "mailto:maya@example.com" }
+  ],
+  "experience": [
+    {
+      "company": "PixelForge",
+      "role": "Frontend Engineer",
+      "period": "2023 - Present",
+      "location": "Remote",
+      "bullets": [
+        "Built reusable UI systems in React",
+        "Improved onboarding funnel conversion by 18%"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Snippet Atlas",
+      "description": "A searchable snippet manager for engineering teams.",
+      "href": "https://example.com/snippet-atlas",
+      "tech": ["Next.js", "PostgreSQL", "TypeScript"]
+    }
+  ],
+  "blogs": [
+    {
+      "title": "How I Structure React Features",
+      "description": "A practical guide to scaling feature folders.",
+      "href": "https://blog.example.com/react-features",
+      "date": "Feb 2026"
+    }
+  ]
+}

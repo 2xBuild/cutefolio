@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1772092080493,
+      "tag": "0000_gigantic_captain_midlands",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1772122730218,
+      "tag": "0001_schema_rebuild",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1772125053588,
+      "tag": "0002_app_status_two_values",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1772125100000,
+      "tag": "0003_analytics_dedup",
+      "breakpoints": true
+    }
+  ]
+}

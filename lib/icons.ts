@@ -5,6 +5,44 @@ import type { IconType } from "react-icons";
 const SI = SiIcons as Record<string, IconType | undefined>;
 const BI = BiIcons as Record<string, IconType | undefined>;
 
+export interface IconEntry {
+  /** Spec string to store: "SI Github", "BI Envelope", etc. */
+  spec: string;
+  /** Human-readable label for search: "Github", "Envelope" */
+  label: string;
+  /** The component */
+  Icon: IconType;
+}
+
+let _iconListCache: IconEntry[] | null = null;
+
+/**
+ * Returns the full list of available icons (SI + BI).
+ * Result is cached after first call.
+ */
+export function getAllIcons(): IconEntry[] {
+  if (_iconListCache) return _iconListCache;
+
+  const list: IconEntry[] = [];
+
+  for (const [key, component] of Object.entries(SI)) {
+    if (typeof component !== "function" || !key.startsWith("Si")) continue;
+    const name = key.slice(2);
+    if (!name) continue;
+    list.push({ spec: `SI ${name}`, label: name, Icon: component });
+  }
+
+  for (const [key, component] of Object.entries(BI)) {
+    if (typeof component !== "function" || !key.startsWith("Bi")) continue;
+    const name = key.slice(2);
+    if (!name) continue;
+    list.push({ spec: `BI ${name}`, label: name, Icon: component });
+  }
+
+  _iconListCache = list;
+  return list;
+}
+
 function toPascalKey(prefix: string, name: string): string {
   const base = name.replace(new RegExp(`^${prefix}`, "i"), "").trim();
   if (!base) return "";

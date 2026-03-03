@@ -8,7 +8,6 @@ import {
   useMemo,
   useState,
 } from "react";
-import { ThemeSwitchOverlay } from "@/components/theme-switch-overlay";
 
 const STORAGE_KEY = "theme";
 
@@ -18,10 +17,6 @@ type ThemeContextValue = {
   theme: Theme;
   resolvedTheme: "light" | "dark";
   setTheme: (theme: Theme) => void;
-  /** Show center animation then toggle between light/dark */
-  requestThemeSwitch: () => void;
-  showSwitchOverlay: boolean;
-  setShowSwitchOverlay: (show: boolean) => void;
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -50,10 +45,10 @@ function applyTheme(resolved: "light" | "dark") {
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("system");
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
-  const [showSwitchOverlay, setShowSwitchOverlay] = useState(false);
 
   useEffect(() => {
     const stored = getStoredTheme();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (stored) setThemeState(stored);
     const resolved = getResolvedTheme(stored ?? "system");
     setResolvedTheme(resolved);
@@ -62,6 +57,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const resolved = getResolvedTheme(theme);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setResolvedTheme(resolved);
     applyTheme(resolved);
     if (theme !== "system") localStorage.setItem(STORAGE_KEY, theme);
@@ -84,32 +80,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setThemeState(next);
   }, []);
 
-  const requestThemeSwitch = useCallback(() => {
-    setShowSwitchOverlay(true);
-  }, []);
-
   const value = useMemo<ThemeContextValue>(
-    () => ({
-      theme,
-      resolvedTheme,
-      setTheme,
-      requestThemeSwitch,
-      showSwitchOverlay,
-      setShowSwitchOverlay,
-    }),
-    [
-      theme,
-      resolvedTheme,
-      setTheme,
-      requestThemeSwitch,
-      showSwitchOverlay,
-    ]
+    () => ({ theme, resolvedTheme, setTheme }),
+    [theme, resolvedTheme, setTheme]
   );
 
   return (
     <ThemeContext.Provider value={value}>
       {children}
-      {showSwitchOverlay && <ThemeSwitchOverlay />}
     </ThemeContext.Provider>
   );
 }

@@ -15,13 +15,68 @@ export interface ProfileCta {
 
 /** Tech with icon (SI/BI spec) and display name. Legacy: plain string = same value for both. */
 export interface ProfileTech {
-  /** Icon spec: "SI IconName" or "BiIconName" (e.g. "SI Typescript", "BiReact") */
+  /** Icon spec: "SI IconName" or "BI IconName" (e.g. "SI Typescript", "BI React") */
   iconName: string;
   /** Label shown in the UI */
   visibleName: string;
 }
 
+export interface ProfileExperience {
+  company: string;
+  role: string;
+  period: string;
+  location?: string;
+  tech?: string[];
+  bullets?: string[];
+}
+
+export interface ProfileProject {
+  title: string;
+  description: string;
+  /** Optional project thumbnail/image URL */
+  image?: string;
+  href?: string;
+  tech?: string[];
+}
+
+export interface ProfileBlog {
+  title: string;
+  description: string;
+  href: string;
+  date?: string;
+  tags?: string[];
+}
+
+export interface ProfileThemeColors {
+  /** Portfolio background color */
+  bg?: string;
+  /** Main text color */
+  text?: string;
+  /** Secondary/muted text color */
+  muted?: string;
+  /** Accent color (buttons, focus, highlights) */
+  accent?: string;
+  /** Border/outline color */
+  border?: string;
+}
+
+export interface ProfileThemeFonts {
+  /** Default text font family */
+  body?: string;
+  /** Heading font family */
+  heading?: string;
+}
+
+export interface ProfileTheme {
+  colors?: ProfileThemeColors;
+  fonts?: ProfileThemeFonts;
+}
+
 export interface Profile {
+  /** Template id — defaults to "1" (minimal) when omitted */
+  template?: string;
+  /** Optional hero/banner image for template variants that support it */
+  banner_image?: string;
   img: string;
   img_alt: string;
   heading_bold: string;
@@ -32,10 +87,29 @@ export interface Profile {
   desc_3: string;
   cta_buttons: ProfileCta[];
   social_links: ProfileSocialLink[];
+  /** Optional: for templates that show experience section */
+  experience?: ProfileExperience[];
+  /** Optional: for templates that show projects section */
+  projects?: ProfileProject[];
+  /** Optional: for templates that show blogs section */
+  blogs?: ProfileBlog[];
+  /** Optional: "Book a call" / meeting link */
+  meeting_link?: { label: string; href: string };
+  /** Optional: quote section at bottom */
+  quote?: { text: string; author?: string };
+  /** Optional: custom color combo + fonts for portfolio styling */
+  theme?: ProfileTheme;
 }
 
+export type ProfileSource = "kno-li";
+
 export type FetchProfileResult =
-  | { status: "ok"; profile: Profile }
+  | {
+      status: "ok";
+      profile: Profile;
+      source: ProfileSource;
+      appId?: string;
+      slug?: string;
+    }
   | { status: "not_found" }
   | { status: "invalid_config" };
-

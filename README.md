@@ -1,135 +1,317 @@
-# Cool profile page 
-wanna-hire.me or it-iz.me/YOUR_GITHUB_USERNAME
+# kno.li
 
-Your page is live at **`https://wanna-hire.me/YourGitHubUsername`** and **`https://it-iz.me/YourGitHubUsername`** when you add a repo named `it-iz-me` with a `main.json` profile. This guide shows how to set that up.
+kno.li let's you host portfolios and linkfolios for you, your brand or SaaS with stunning templates. It also includes per-profile analytics, custom domains, customization and cool og images. 
 
----
+## Tech Stack
 
-## 1. Create your `it-iz-me` repo
+- Bun + Next.js 16 + React 19 + TypeScript
+- Tailwind CSS 4
+- Drizzle ORM + PostgreSQL
+- NextAuth
+- Polar (checkout, portal, webhook billing flows)
 
-1. On GitHub, create a **new repository**.
-2. Name it **exactly** `it-iz-me` (lowercase, with the hyphen).
-3. Make it **public**.
-4. Use the **default branch** `main` (or your profile will not load).
+## Getting Started
 
----
+### 1) Install dependencies
 
-## 2. Add `main.json`
+```bash
+bun install
+```
 
-In the **root** of your `it-iz-me` repo, add a file named **`main.json`**.
+### 2) Configure environment
 
-Your page is loaded from:
+Create `.env` from `.env.example` and fill values:
+
+```bash
+cp .env.example .env
+```
+
+Environment variables used:
+
+- `SITE_URL`
+- `DATABASE_URL`
+- `AUTH_SECRET`
+- `AUTH_GITHUB_ID`
+- `AUTH_GITHUB_SECRET`
+- `AUTH_GOOGLE_ID`
+- `AUTH_GOOGLE_SECRET`
+- `POLAR_ACCESS_TOKEN`
+- `POLAR_WEBHOOK_SECRET`
+- `NEXT_PUBLIC_POLAR_PRODUCT_PRO_MONTHLY`
+- `NEXT_PUBLIC_POLAR_PRODUCT_PRO_YEARLY`
+- `NEXT_PUBLIC_POLAR_PRODUCT_ULTRA_MONTHLY`
+- `NEXT_PUBLIC_POLAR_PRODUCT_ULTRA_YEARLY`
+
+### 3) Run migrations
+
+```bash
+bun run db:generate
+bun run db:migrate
+```
+
+### 4) Start development server
+
+```bash
+bun run dev
+```
+
+App runs at `http://localhost:3000`.
+
+## Scripts
+
+- `bun run dev` - Start local dev server
+- `bun run build` - Build production app
+- `bun run start` - Run built app
+- `bun run lint` - Run ESLint
+- `bun run db:generate` - Generate drizzle migration files
+- `bun run db:migrate` - Run migrations
+- `bun run db:push` - Push schema to database
+
+## Path and Folder Structure
+
+The tree below reflects the current tracked repository structure.
 
 ```text
-https://raw.githubusercontent.com/YourGitHubUsername/it-iz-me/main/main.json
+.
+├── app/
+│   ├── [username]/
+│   │   ├── opengraph-image.tsx
+│   │   └── page.tsx
+│   ├── api/
+│   │   ├── analytics/
+│   │   │   └── collect/
+│   │   │       └── route.ts
+│   │   ├── apps/
+│   │   │   ├── [appId]/
+│   │   │   │   ├── analytics/
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── content/
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── domains/
+│   │   │   │   │   ├── [domainId]/
+│   │   │   │   │   │   ├── verify/
+│   │   │   │   │   │   │   └── route.ts
+│   │   │   │   │   │   └── route.ts
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── route.ts
+│   │   │   └── route.ts
+│   │   ├── auth/
+│   │   │   └── [...nextauth]/
+│   │   │       └── route.ts
+│   │   ├── og/
+│   │   │   └── [username]/
+│   │   │       └── route.tsx
+│   │   └── polar/
+│   │       ├── checkout/
+│   │       │   └── route.ts
+│   │       ├── portal/
+│   │       │   └── route.ts
+│   │       └── webhook/
+│   │           └── route.ts
+│   ├── compare/
+│   │   └── page.tsx
+│   ├── dashboard/
+│   │   ├── analytics/
+│   │   │   └── page.tsx
+│   │   ├── create-app/
+│   │   │   └── page.tsx
+│   │   ├── manage-apps/
+│   │   │   ├── [appId]/
+│   │   │   │   ├── edit/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── plan/
+│   │   │   ├── page.tsx
+│   │   │   └── plan-client.tsx
+│   │   ├── profile/
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── login/
+│   │   ├── login-providers.tsx
+│   │   └── page.tsx
+│   ├── preview/
+│   │   └── page.tsx
+│   ├── templates/
+│   │   └── page.tsx
+│   ├── terms/
+│   │   └── page.tsx
+│   ├── tnc/
+│   │   └── page.tsx
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── not-found.tsx
+│   ├── opengraph-image.tsx
+│   └── page.tsx
+├── assets/
+│   └── fonts/
+│       └── GeistPixel-Square.ttf
+├── components/
+│   ├── analytics/
+│   │   └── profile-link-tracker.tsx
+│   ├── dashboard/
+│   │   ├── app-actions-menu.tsx
+│   │   ├── app-domains-card.tsx
+│   │   ├── header.tsx
+│   │   ├── icon-picker.tsx
+│   │   ├── sidebar.tsx
+│   │   ├── stat-card.tsx
+│   │   └── theme-toggle.tsx
+│   ├── errors/
+│   │   ├── index.ts
+│   │   ├── invalid-config.tsx
+│   │   └── not-found.tsx
+│   ├── landing/
+│   │   ├── domains-section.tsx
+│   │   ├── facts-section.tsx
+│   │   ├── github-pill.tsx
+│   │   ├── hero-section.tsx
+│   │   ├── how-to-section.tsx
+│   │   ├── portfolios-section.tsx
+│   │   ├── pricing-section.tsx
+│   │   ├── site-footer.tsx
+│   │   ├── stats-section.tsx
+│   │   ├── templates-section.tsx
+│   │   ├── theme-toggle.tsx
+│   │   └── website-links.tsx
+│   ├── ui/
+│   │   ├── badge.tsx
+│   │   ├── button.tsx
+│   │   ├── calendar.tsx
+│   │   ├── card.tsx
+│   │   ├── dropdown-menu.tsx
+│   │   ├── input.tsx
+│   │   ├── label.tsx
+│   │   ├── multi-step-form.tsx
+│   │   ├── popover.tsx
+│   │   ├── select.tsx
+│   │   └── textarea.tsx
+│   ├── auth-session-provider.tsx
+│   ├── expandable-gallery.tsx
+│   ├── icons.tsx
+│   ├── pricing-card.tsx
+│   ├── status-button.tsx
+│   └── theme-provider.tsx
+├── data/
+│   └── hosted-profiles.json
+├── db/
+│   ├── analytics.ts
+│   ├── apps.ts
+│   ├── auth.ts
+│   ├── billing.ts
+│   ├── enums.ts
+│   └── schema.ts
+├── drizzle/
+│   ├── meta/
+│   │   ├── 0000_snapshot.json
+│   │   ├── 0001_snapshot.json
+│   │   ├── 0002_snapshot.json
+│   │   └── _journal.json
+│   ├── 0000_gigantic_captain_midlands.sql
+│   ├── 0001_schema_rebuild.sql
+│   ├── 0002_app_status_two_values.sql
+│   └── 0003_analytics_dedup.sql
+├── hooks/
+│   └── use-outside-click.ts
+├── lib/
+│   ├── api/
+│   │   └── response.ts
+│   ├── gating/
+│   │   └── plan-features.ts
+│   ├── og/
+│   │   ├── main-site-image.tsx
+│   │   ├── profile-template-image.tsx
+│   │   ├── profile-template-visuals.tsx
+│   │   └── shared.ts
+│   ├── repositories/
+│   │   ├── analytics-repo.ts
+│   │   ├── apps-repo.ts
+│   │   ├── billing-repo.ts
+│   │   └── domains-repo.ts
+│   ├── services/
+│   │   ├── analytics-service.ts
+│   │   ├── apps-service.ts
+│   │   └── domains-service.ts
+│   ├── tracking/
+│   │   ├── geo.ts
+│   │   └── visitor-fingerprint.ts
+│   ├── utils/
+│   │   └── validation.ts
+│   ├── validators/
+│   │   ├── app-schema.ts
+│   │   └── domain-schema.ts
+│   ├── auth.config.ts
+│   ├── auth.ts
+│   ├── constants.ts
+│   ├── current-user.ts
+│   ├── db-errors.ts
+│   ├── db.ts
+│   ├── dummy-profile.ts
+│   ├── hosted-profiles.ts
+│   ├── icons.ts
+│   ├── profile-theme.ts
+│   ├── profile.ts
+│   ├── rate-limit.ts
+│   ├── sfx.ts
+│   ├── types.ts
+│   ├── username-policy.ts
+│   └── utils.ts
+├── public/
+│   ├── flat_logo.png
+│   └── logo.png
+├── templates/
+│   ├── linkfolio/
+│   │   ├── 1/
+│   │   │   ├── banner.png
+│   │   │   ├── dummy.json
+│   │   │   ├── index.tsx
+│   │   │   ├── og-image.tsx
+│   │   │   └── req.ts
+│   │   ├── 2/
+│   │   │   ├── banner.png
+│   │   │   ├── dummy.json
+│   │   │   ├── index.tsx
+│   │   │   ├── og-image.tsx
+│   │   │   └── req.ts
+│   │   └── og-image.tsx
+│   ├── portfolio/
+│   │   ├── 1/
+│   │   │   ├── banner.png
+│   │   │   ├── dummy.json
+│   │   │   ├── index.tsx
+│   │   │   ├── og-image.tsx
+│   │   │   └── req.ts
+│   │   ├── 2/
+│   │   │   ├── banner.png
+│   │   │   ├── dummy.json
+│   │   │   ├── index.tsx
+│   │   │   ├── og-image.tsx
+│   │   │   └── req.ts
+│   │   ├── 3/
+│   │   │   ├── banner.png
+│   │   │   ├── dummy.json
+│   │   │   ├── index.tsx
+│   │   │   └── req.ts
+│   │   └── og-image.tsx
+│   ├── index.ts
+│   └── types.ts
+├── types/
+│   ├── google-identity.d.ts
+│   └── next-auth.d.ts
+├── .gitignore
+├── README.md
+├── bun.lock
+├── components.json
+├── drizzle.config.ts
+├── eslint.config.mjs
+├── main.json
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── plan.md
+├── postcss.config.mjs
+├── proxy.ts
+├── tsconfig.json
 ```
-
-So the file must be at the repo root and on the `main` branch.
-
-### Example `main.json`
-
-```json
-{
-  "img": "https://raw.githubusercontent.com/YourGitHubUsername/it-iz-me/main/avatar.png",
-  "img_alt": "Profile photo",
-  "heading_bold": "hi there, i'm YourName",
-  "heading_light": ": a full stack developer.",
-  "desc_1": "i build stuff with",
-  "tech_stack": [
-    { "iconName": "SI Typescript", "visibleName": "TypeScript" },
-    { "iconName": "SI React", "visibleName": "React" },
-    { "iconName": "SI Nextdotjs", "visibleName": "Next.js" },
-    { "iconName": "SI Python", "visibleName": "Python" }
-  ],
-  "desc_2": "Your short bio or skills summary.",
-  "desc_3": "Why someone should hire you — and what to do next.",
-  "cta_buttons": [
-    { "type": "primary", "label": "Know More", "href": "https://your-site.com", "icon": "SI FileText" },
-    { "type": "secondary", "label": "Get in touch", "href": "mailto:you@example.com", "icon": "BI Send" }
-  ],
-  "social_links": [
-    { "type": "SI Github", "label": "GitHub", "href": "https://github.com/you" },
-    { "type": "SI x", "label": "X", "href": "https://x.com/you" }
-  ]
-}
-```
-
-| Field | Description |
-|-------|-------------|
-| `img` | URL of your profile image (see [Profile image](#profile-image) below). |
-| `img_alt` | Accessible description of the image. |
-| `heading_bold` | Main heading (e.g. your name). |
-| `heading_light` | Subheading (e.g. role or tagline). |
-| `desc_1` | Intro line before the tech badges. |
-| `tech_stack` | Array of skills. Each entry is either a **string** (icon spec, same as label) or `{ "iconName", "visibleName" }` (see [Icons](#icons-tech-stack-social-ctas)). |
-| `desc_2` | Body text. |
-| `desc_3` | Closing line above the buttons. |
-| `cta_buttons` | Array of `{ "type": "primary" \| "secondary", "label", "href", "icon"? }`. Optional **icon** spec per button (see [Icons](#icons-tech-stack-social-ctas)). |
-| `social_links` | Array of `{ "type", "label", "href" }`; **type** = icon spec (see [Icons](#icons-tech-stack-social-ctas)). |
-
----
-
-## 3. Profile image
-
-You can host your photo in the **same repo** and link it in `main.json`.
-
-1. Upload the image (e.g. `avatar.png` or `photo.jpg`) to the **root** of your `it-iz-me` repo (or a folder like `images/`).
-2. Use the **raw GitHub URL** in the `img` field.
-
-**Format:**
-
-```text
-https://raw.githubusercontent.com/YourGitHubUsername/it-iz-me/main/your-image.png
-```
-
-If you put it in a subfolder:
-
-```text
-https://raw.githubusercontent.com/YourGitHubUsername/it-iz-me/main/images/avatar.png
-```
-
-- Use your **real GitHub username** and the **exact file path**.
-- No trailing slashes. Use `main` if your default branch is `main`.
-
----
-
-## 4. Icons (tech stack, social, CTAs)
-
-Icons are **not limited to one set**. You choose **SI** (Simple Icons) or **BI** (Bootstrap Icons) with a short spec.
-
-**Format:** `SI IconName` or `BI IconName` (space optional: `SIIconName` / `BIIconName`).  
-If you omit the prefix, **SI** is assumed (e.g. `Github` → Simple Icons).
-
-- **SI** = [react-icons/si](https://react-icons.github.io/react-icons/icons/si/) (Simple Icons)  
-- **BI** = [react-icons/bi](https://react-icons.github.io/react-icons/icons/bi/) (Bootstrap Icons)
-
-**Where it’s used:**
-
-| Field | Usage |
-|-------|--------|
-| `tech_stack[]` | Each entry is a string (icon spec = badge label) or `{ "iconName", "visibleName" }` (icon spec + custom label). |
-| `social_links[].type` | Icon spec for the social link. **`label`** = accessibility text (`aria-label`). |
-| `cta_buttons[].icon` | Optional icon for each button (no icon = default document/send icon by type). |
-
-**Examples:**
-
-- `"SI Github"`, `"SI Typescript"`, `"BI Star"`, `"BI Heart"`
-- `"SIGithub"`, `"BIStar"` (no space)
-- `"Typescript"` (no prefix → SI)
-- Dots in SI names → **`dot`**: e.g. `"SI Nextdotjs"`, `"SI Nodedotjs"`
-
-**Caution:** Use the **exact icon name** from the [SI](https://react-icons.github.io/react-icons/icons/si/) or [BI](https://react-icons.github.io/react-icons/icons/bi/) list (e.g. **`SI x`** for X/Twitter, **`SI Linkedin`**). If the icon isn’t found, a generic icon is used but the label/link still works.
-
----
-
-## 5. Checklist
-
-- [ ] Repo is named **`it-iz-me`** and is **public**.
-- [ ] Default branch is **`main`**.
-- [ ] **`main.json`** is in the **root** of the repo.
-- [ ] **`img`** is a full URL (e.g. raw GitHub link) if the image is in your repo.
-- [ ] **`tech_stack`** entries are strings or `{ "iconName", "visibleName" }`; **`cta_buttons`** is an array of `{ "type", "label", "href", "icon"? }`.
-- [ ] Icons use **`SI IconName`** or **`BI IconName`** (or name-only for SI) from [si](https://react-icons.github.io/react-icons/icons/si/) / [bi](https://react-icons.github.io/react-icons/icons/bi/); dots as `dot` (e.g. `SI Nextdotjs`).
-- [ ] **`social_links[].label`** is a short, readable name for accessibility.
-
-Your page: **https://wanna-hire.me/YourGitHubUsername**

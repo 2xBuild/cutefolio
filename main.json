@@ -1,5 +1,5 @@
 {
-    "img": "https://raw.githubusercontent.com/YourGitHubUsername/it-iz-me/main/avatar.png",
+    "img": "https://your-site.com/avatar.png",
     "img_alt": "Profile photo",
     "heading_bold": "hi there, i'm YourName",
     "heading_light": ": a full stack developer.",
@@ -17,7 +17,20 @@
       { "type": "secondary", "label": "Get in touch", "href": "mailto:you@example.com", "icon": "BI Send" }
     ],
     "social_links": [
-      { "type": "SI Github", "label": "GitHub", "href": "https://github.com/you" },
+      { "type": "SI Linkedin", "label": "LinkedIn", "href": "https://linkedin.com/in/you" },
       { "type": "SI x", "label": "X", "href": "https://x.com/you" }
-    ]
+    ],
+    "theme": {
+      "colors": {
+        "bg": "#0b1220",
+        "text": "#e2e8f0",
+        "muted": "#93a4bd",
+        "accent": "#38bdf8",
+        "border": "#1f2a44"
+      },
+      "fonts": {
+        "body": "\"IBM Plex Sans\", sans-serif",
+        "heading": "\"Space Grotesk\", sans-serif"
+      }
+    }
   }

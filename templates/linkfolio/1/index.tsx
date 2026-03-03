@@ -1,45 +1,46 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { FileText, Send, Code } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import type { ComponentType } from "react";
 import { getIcon } from "@/lib/icons";
 import { Button } from "@/components/ui/button";
-import type { Profile, ProfileTech } from "@/lib/types";
+import type { ProfileTech } from "@/lib/types";
+import type { TemplateProps } from "@/templates";
 
 const SKILL_ICON_CLASS = "h-4 w-4 shrink-0";
+const HEADING_FONT_CLASS = "[font-family:var(--profile-heading-font)]";
 
-interface ProfileIntroProps {
-  profile: Profile;
-}
-
-export function ProfileIntro({ profile }: ProfileIntroProps) {
-  const { requestThemeSwitch } = useTheme();
-
-  const imgAlt = profile.img_alt;
+/**
+ * Linkfolio 1 — Minimal Intro
+ *
+ * Clean lines, generous whitespace, system fonts, fade-in animation.
+ */
+export default function MinimalTemplate({ profile }: TemplateProps) {
+  const { resolvedTheme, setTheme } = useTheme();
+  const toggleTheme = () => setTheme(resolvedTheme === "dark" ? "light" : "dark");
 
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="relative flex w-full max-w-2xl flex-col bg-background py-20 font-sans text-left"
+      className="relative flex w-full max-w-2xl flex-col bg-background py-20 font-sans text-left text-foreground"
     >
       <div className="w-full px-4">
-        {/* Top row: avatar (click to toggle theme) */}
         <div className="mb-8 flex w-full items-start">
           <button
             type="button"
-            onClick={requestThemeSwitch}
+            onClick={toggleTheme}
             className="relative shrink-0 rounded-full outline-none ring-offset-2 ring-offset-background focus-visible:ring-2 focus-visible:ring-ring"
             aria-label="Toggle dark or light mode"
           >
-            <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-neutral-200 bg-neutral-100 dark:border-neutral-600 dark:bg-neutral-800">
+            <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-border bg-muted">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={profile.img}
-                alt={imgAlt}
+                alt={profile.img_alt}
                 width={80}
                 height={80}
                 className="h-full w-full object-cover"
@@ -49,8 +50,7 @@ export function ProfileIntro({ profile }: ProfileIntroProps) {
                   const parent = t.parentElement;
                   if (parent && !parent.querySelector(".avatar-fallback")) {
                     const fallback = document.createElement("div");
-                    fallback.className =
-                      "avatar-fallback h-full w-full bg-neutral-300 dark:bg-neutral-600";
+                    fallback.className = "avatar-fallback h-full w-full bg-muted";
                     fallback.setAttribute("aria-hidden", "true");
                     parent.appendChild(fallback);
                   }
@@ -58,23 +58,23 @@ export function ProfileIntro({ profile }: ProfileIntroProps) {
               />
             </div>
             <span
-              className="absolute bottom-1 right-1 h-3 w-3 rounded-full border-2 border-white bg-neutral-400 dark:border-neutral-800 dark:bg-neutral-500"
+              className="absolute bottom-1 right-1 h-3 w-3 rounded-full border-2 border-background bg-muted-foreground"
               aria-hidden
             />
           </button>
         </div>
 
-        {/* Heading */}
-        <h1 className="text-3xl font-bold tracking-tight text-neutral-800 dark:text-neutral-100 sm:text-4xl">
+        <h1
+          className={`text-3xl font-bold tracking-tight text-foreground sm:text-4xl ${HEADING_FONT_CLASS}`}
+        >
           {profile.heading_bold}{" "}
-          <span className="font-normal text-neutral-500 dark:text-neutral-400">
+          <span className="font-normal text-muted-foreground">
             {profile.heading_light}
           </span>
         </h1>
 
-        {/* Description with skill badges */}
-        <div className="mt-4 text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
-          <p className="mb-2"> {profile.desc_1} </p>
+        <div className="mt-4 text-base leading-relaxed text-muted-foreground">
+          <p className="mb-2">{profile.desc_1}</p>
           <span className="inline-flex flex-wrap items-center gap-2">
             {profile.tech_stack.map((item) => {
               const tech: ProfileTech =
@@ -85,7 +85,7 @@ export function ProfileIntro({ profile }: ProfileIntroProps) {
               return (
                 <span
                   key={tech.visibleName}
-                  className="inline-flex items-center gap-2 rounded-md border border-neutral-300 bg-neutral-50 px-2.5 py-1 text-[14px] font-medium text-neutral-900 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100"
+                  className="inline-flex items-center gap-2 rounded-md border border-border bg-muted/50 px-2.5 py-1 text-[14px] font-medium text-foreground"
                 >
                   <Icon className={SKILL_ICON_CLASS} />
                   {tech.visibleName}
@@ -93,17 +93,16 @@ export function ProfileIntro({ profile }: ProfileIntroProps) {
               );
             })}
           </span>
-          <p className="mt-2 text-neutral-600 dark:text-neutral-300">
+          <p className="mt-2 text-muted-foreground">
             {profile.desc_2}
           </p>
         </div>
 
-        <div className="mt-5 border-t border-neutral-200 dark:border-neutral-600 ">
-          <p className="mt-4 text-neutral-600 dark:text-neutral-300">
+        <div className="mt-5 border-t border-border">
+          <p className="mt-4 text-muted-foreground">
             {profile.desc_3}
           </p>
 
-          {/* Buttons */}
           <div className="mt-5 flex flex-wrap items-center gap-3">
             {profile.cta_buttons.map((cta, i) => {
               const Icon: ComponentType<{ className?: string }> =
@@ -115,11 +114,7 @@ export function ProfileIntro({ profile }: ProfileIntroProps) {
                   key={`${cta.href}-${i}`}
                   size="lg"
                   variant={isPrimary ? "default" : "outline"}
-                  className={
-                    isPrimary
-                      ? "bg-neutral-900 font-medium text-white hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
-                      : "border-neutral-300 bg-white font-medium text-neutral-900 hover:bg-neutral-50 hover:text-neutral-900 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700"
-                  }
+                  className="rounded-full font-medium"
                   asChild
                 >
                   <a href={cta.href}>
@@ -131,8 +126,8 @@ export function ProfileIntro({ profile }: ProfileIntroProps) {
             })}
           </div>
         </div>
-        {/* Social icons */}
-        <div className="mt-10 m-1.5 flex items-center gap-6 text-neutral-900 dark:text-neutral-100">
+
+        <div className="m-1.5 mt-10 flex items-center gap-6 text-foreground">
           {profile.social_links.map(({ type, label, href }) => {
             const Icon = getIcon(type) ?? Code;
             return (

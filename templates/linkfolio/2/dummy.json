@@ -1,0 +1,33 @@
+{
+  "template": "linkfolio-2",
+  "img": "https://api.dicebear.com/7.x/avataaars/svg?seed=linkfolio2",
+  "img_alt": "Profile photo",
+  "heading_bold": "Jordan Lee",
+  "heading_light": "creator & developer",
+  "desc_1": "Designer by day, developer by night. Here are all the places you can find me online.",
+  "tech_stack": [],
+  "desc_2": "",
+  "desc_3": "",
+  "cta_buttons": [],
+  "social_links": [
+    { "type": "SI x", "label": "X / Twitter", "href": "https://x.com/jordanlee" },
+    { "type": "SI Github", "label": "GitHub", "href": "https://github.com/jordanlee" },
+    { "type": "SI Linkedin", "label": "LinkedIn", "href": "https://linkedin.com/in/jordanlee" },
+    { "type": "SI Youtube", "label": "YouTube", "href": "https://youtube.com/@jordanlee" },
+    { "type": "SI Dribbble", "label": "Dribbble", "href": "https://dribbble.com/jordanlee" },
+    { "type": "BI Envelope", "label": "Email", "href": "mailto:jordan@example.com" }
+  ],
+  "theme": {
+    "colors": {
+      "bg": "#18181b",
+      "text": "#fafafa",
+      "muted": "#a1a1aa",
+      "accent": "#e4e4e7",
+      "border": "#27272a"
+    },
+    "fonts": {
+      "body": "\"DM Sans\", sans-serif",
+      "heading": "\"DM Sans\", sans-serif"
+    }
+  }
+}

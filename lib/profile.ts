@@ -1,30 +1,68 @@
-import type { Profile, FetchProfileResult } from "./types";
+import { cache } from "react";
+import {
+  resolvePublishedAppByCustomDomain,
+  resolvePublishedAppBySlugAndHost,
+} from "@/lib/services/apps-service";
+import { normalizeHost } from "@/lib/constants";
+import type { FetchProfileResult, Profile, ProfileSource } from "./types";
 
-const GITHUB_RAW_BASE = "https://raw.githubusercontent.com";
-
-export function getProfileJsonUrl(username: string): string {
-  return `${GITHUB_RAW_BASE}/${username}/it-iz-me/main/main.json`;
-}
-
-/** Resolve img to absolute URL. Relative paths (e.g. /void.png) → GitHub raw. */
-export function resolveProfileImgUrl(username: string, img: string): string {
+export function resolveProfileImgUrl(
+  _username: string,
+  img: string,
+  _source: ProfileSource = "kno-li"
+): string {
   if (img.startsWith("http://") || img.startsWith("https://")) return img;
-  const base = `${GITHUB_RAW_BASE}/${username}/it-iz-me/main`;
-  const path = img.startsWith("/") ? img.slice(1) : img;
-  return `${base}/${path}`;
+  if (img.startsWith("/")) {
+    const base = process.env.SITE_URL ?? "https://kno.li";
+    try {
+      return new URL(img, base).toString();
+    } catch {
+      return img;
+    }
+  }
+  return img;
 }
 
-export async function fetchProfile(username: string): Promise<FetchProfileResult> {
-  const url = getProfileJsonUrl(username);
-  try {
-    const res = await fetch(url, {
-      next: { revalidate: 60 },
-      headers: { Accept: "application/json" },
-    });
-    if (!res.ok) return { status: "not_found" };
-    const data = await res.json();
-    return { status: "ok", profile: data as Profile };
-  } catch {
-    return { status: "invalid_config" };
+function fallbackHostedHost(): string {
+  if (process.env.SITE_URL) {
+    try {
+      return new URL(process.env.SITE_URL).host;
+    } catch {
+      // fall through
+    }
   }
+  return "kno.li";
+}
+
+export const fetchProfile = cache(async function fetchProfile(
+  username: string,
+  options?: { host?: string }
+): Promise<FetchProfileResult> {
+  const host = normalizeHost(options?.host) ?? fallbackHostedHost();
+
+  const hosted = await resolvePublishedAppBySlugAndHost({ slug: username, host });
+  if (!hosted) {
+    return { status: "not_found" };
+  }
+
+  return {
+    status: "ok",
+    profile: hosted.content.content as unknown as Profile,
+    source: "kno-li",
+    appId: hosted.app.id,
+    slug: hosted.app.slug,
+  };
+});
+
+export async function fetchProfileFromCustomDomain(host: string): Promise<FetchProfileResult> {
+  const hosted = await resolvePublishedAppByCustomDomain(host);
+  if (!hosted) return { status: "not_found" };
+
+  return {
+    status: "ok",
+    profile: hosted.content.content as unknown as Profile,
+    source: "kno-li",
+    appId: hosted.app.id,
+    slug: hosted.app.slug,
+  };
 }

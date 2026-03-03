@@ -1,23 +1,30 @@
 import type { Metadata } from "next";
-import { Instrument_Serif } from "next/font/google";
 import { GeistPixelSquare } from "geist/font/pixel";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AuthSessionProvider } from "@/components/auth-session-provider";
+import { APP_LOGO_PATH } from "@/lib/constants";
 import "./globals.css";
 
-const instrumentSerif = Instrument_Serif({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-instrument-serif",
-});
-
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL!),
-  title: "That's me",
+  metadataBase: new URL(process.env.SITE_URL ?? "https://kno.li"),
+  title: "kno.li",
   description:
-    "Everything you need to know about me.",
+    "Build and host your portfolio on kno.li infrastructure with usernames, custom domains, and in-house analytics.",
+  openGraph: {
+    title: "kno.li",
+    description:
+      "Build and host your portfolio on kno.li infrastructure with usernames, custom domains, and in-house analytics.",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/opengraph-image"],
+  },
   icons: {
-    icon: "/favicon.ico",
+    icon: APP_LOGO_PATH,
+    apple: APP_LOGO_PATH,
   },
 };
 
@@ -29,24 +36,26 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${GeistPixelSquare.variable}`}
+      className={GeistPixelSquare.variable}
       suppressHydrationWarning
     >
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                var v = localStorage.getItem('theme');
-                var dark = v === 'dark' || (v !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-                document.documentElement.classList.toggle('dark', dark);
+                try {
+                  var v = localStorage.getItem('theme');
+                  var dark = v === 'dark' || (v !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                  document.documentElement.classList.toggle('dark', dark);
+                } catch(e) {}
               })();
             `,
           }}
         />
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <AuthSessionProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </AuthSessionProvider>
         <Analytics />
       </body>
     </html>

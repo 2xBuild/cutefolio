@@ -1,5 +1,9 @@
 import { fetchProfile } from "@/lib/profile";
-import { buildOgImage, buildOgImageNotFound } from "@/lib/og-image";
+import {
+  buildProfileOgNotFound,
+  buildTemplateProfileOgImage,
+} from "@/lib/og/profile-template-image";
+import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -10,12 +14,19 @@ export async function GET(
 ) {
   try {
     const { username } = await params;
-    const result = await fetchProfile(username);
+    const headerList = await headers();
+    const host =
+      headerList.get("x-forwarded-host") ?? headerList.get("host") ?? undefined;
+    const result = await fetchProfile(username, { host });
 
-    if (result.status !== "ok") return buildOgImageNotFound();
+    if (result.status !== "ok") return buildProfileOgNotFound();
 
-    return await buildOgImage(result.profile, username);
+    return await buildTemplateProfileOgImage(
+      result.profile,
+      username,
+      result.source
+    );
   } catch {
-    return buildOgImageNotFound();
+    return buildProfileOgNotFound();
   }
 }
