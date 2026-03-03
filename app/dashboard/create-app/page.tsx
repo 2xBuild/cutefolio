@@ -4,7 +4,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { ArrowLeft, CirclePlus, Loader2 } from "lucide-react";
+import { ArrowLeft, CirclePlus } from "lucide-react";
+import { Loader } from "@/components/ui/loader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -194,8 +195,8 @@ export default function CreateAppPage() {
   };
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-8">
-      <header className="space-y-2">
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 p-4 sm:gap-6 sm:p-8">
+      <header className="space-y-1 sm:space-y-2">
         <Button
           variant="ghost"
           size="sm"
@@ -205,46 +206,46 @@ export default function CreateAppPage() {
           <ArrowLeft className="h-4 w-4" />
           Back
         </Button>
-        <h1 className="text-3xl font-bold tracking-tight">Create app</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Create app</h1>
+        <p className="text-sm text-muted-foreground sm:text-base">
           Create one hosted app, choose a template, then publish your profile.
         </p>
       </header>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>App type and template</CardTitle>
+      <Card className="gap-4 py-4 sm:gap-6 sm:py-6">
+        <CardHeader className="px-4 sm:px-6">
+          <CardTitle className="text-sm sm:text-base">App type and template</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid gap-3 sm:grid-cols-2">
+        <CardContent className="space-y-3 px-4 sm:space-y-4 sm:px-6">
+          <div className="grid gap-2 sm:grid-cols-2 sm:gap-3">
             <button
               type="button"
               onClick={() => setAppType("link-organiser")}
-              className={`rounded-xl border p-4 text-left transition ${
+              className={`rounded-xl border p-3 text-left transition sm:p-4 ${
                 appType === "link-organiser"
                   ? "border-primary/40 bg-primary/10"
                   : "border-border hover:border-foreground/30"
               }`}
             >
-              <p className="font-semibold">Linkfolio</p>
-              <p className="text-xs text-muted-foreground">Bio-page or links tree/organizer.</p>
+              <p className="text-sm font-semibold sm:text-base">Linkfolio</p>
+              <p className="text-[11px] text-muted-foreground sm:text-xs">Bio-page or links tree/organizer.</p>
             </button>
             <button
               type="button"
               onClick={() => setAppType("portfolio")}
-              className={`rounded-xl border p-4 text-left transition ${
+              className={`rounded-xl border p-3 text-left transition sm:p-4 ${
                 appType === "portfolio"
                   ? "border-primary/40 bg-primary/10"
                   : "border-border hover:border-foreground/30"
               }`}
             >
-              <p className="font-semibold">Portfolio</p>
-              <p className="text-xs text-muted-foreground">Full portfolio layout.</p>
+              <p className="text-sm font-semibold sm:text-base">Portfolio</p>
+              <p className="text-[11px] text-muted-foreground sm:text-xs">Full portfolio layout.</p>
             </button>
           </div>
 
-          <div className="space-y-2">
-            <Label  htmlFor="template">Template <a href="/templates" className="underline underline-offset-2">Learn more</a></Label>
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="template" className="text-xs sm:text-sm">Template <a href="/templates" className="underline underline-offset-2">Learn more</a></Label>
 
             <Select value={templateId} onValueChange={setTemplateId}>
               <SelectTrigger id="template" className="w-full">
@@ -262,13 +263,13 @@ export default function CreateAppPage() {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>App name and domains</CardTitle>
+      <Card className="gap-4 py-4 sm:gap-6 sm:py-6">
+        <CardHeader className="px-4 sm:px-6">
+          <CardTitle className="text-sm sm:text-base">App name and domains</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="slug">App name</Label>
+        <CardContent className="space-y-3 px-4 sm:space-y-4 sm:px-6">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="slug" className="text-xs sm:text-sm">App name</Label>
             <div className="flex gap-2">
               <Input
                 id="slug"
@@ -287,7 +288,7 @@ export default function CreateAppPage() {
                 disabled={isChecking}
                 className="h-10"
               >
-                {isChecking ? <Loader2 className="h-4 w-4 animate-spin" /> : "Check"}
+                {isChecking ? <Loader size="sm" /> : "Check"}
               </Button>
             </div>
             {slugTooShortMessage ? (
@@ -303,7 +304,7 @@ export default function CreateAppPage() {
             ) : null}
           </div>
 
-          <label className="flex items-start gap-2 text-sm">
+          <label className="flex items-start gap-2 text-xs sm:text-sm">
             <input
               type="checkbox"
               checked={acceptUsernamePolicy}
@@ -312,14 +313,11 @@ export default function CreateAppPage() {
             />
             <span>
               I agree to the{" "}
-              <Link href="/tnc#username-policy" className="underline underline-offset-2">
-                Username Policy
+              <Link href="/tnc" className="underline underline-offset-2">
+                Terms and Conditions.
               </Link>{" "}
-              and{" "}
-              <Link href="/tnc#app-policies" className="underline underline-offset-2">
-                App Policies
-              </Link>
-              .
+              
+              
             </span>
           </label>
 
@@ -342,7 +340,7 @@ export default function CreateAppPage() {
 
       <Button onClick={handleCreate} disabled={!availability?.available || !acceptUsernamePolicy || isCreating} className="gap-2">
         {isCreating ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
+          <Loader size="sm" />
         ) : (
           <CirclePlus className="h-4 w-4" />
         )}

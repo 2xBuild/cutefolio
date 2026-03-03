@@ -2,16 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import {
-  ArrowLeft,
-  Check,
-  ExternalLink,
-  Loader2,
-  Plus,
-  Save,
-  Trash2,
-  X,
-} from "lucide-react";
+import { ArrowLeft, Check, ExternalLink, Plus, Save, Trash2, X } from "lucide-react";
+import { Loader } from "@/components/ui/loader";
 import type {
   Profile,
   ProfileCta,
@@ -1074,7 +1066,7 @@ export default function EditAppPage() {
   if (isLoading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        <Loader size="lg" className="border-t-muted-foreground" />
       </div>
     );
   }
@@ -1139,7 +1131,7 @@ export default function EditAppPage() {
           >
             {saveState === "saving" ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Loader size="sm" />
                 Saving
               </>
             ) : saveState === "saved" ? (
@@ -1281,7 +1273,7 @@ export default function EditAppPage() {
               <div className="h-[calc(100vh-13rem)] overflow-y-auto border-t border-border bg-background">
                 {isPreviewLoading ? (
                   <div className="flex h-full min-h-80 items-center justify-center">
-                    <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                    <Loader className="border-t-muted-foreground" />
                   </div>
                 ) : PreviewTemplate ? (
                   <div className="[&_.fixed]:hidden">

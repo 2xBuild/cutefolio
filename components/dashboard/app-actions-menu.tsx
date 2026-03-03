@@ -8,10 +8,10 @@ import {
   Edit3,
   ExternalLink,
   Globe2,
-  Loader2,
   MoreHorizontal,
   Trash2,
 } from "lucide-react";
+import { Loader } from "@/components/ui/loader";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -105,7 +105,7 @@ export function AppActionsMenu({ appId, slug }: AppActionsMenuProps) {
           disabled={isDeleting}
         >
           {isDeleting ? (
-            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            <Loader size="sm" />
           ) : (
             <Trash2 className="h-3.5 w-3.5" />
           )}

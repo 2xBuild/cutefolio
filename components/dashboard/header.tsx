@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -45,6 +45,18 @@ function MobileThemeToggle() {
 export function DashboardHeader({ user }: { user: User }) {
     const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!isMenuOpen) return;
+        const handleClick = (e: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+                setIsMenuOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClick);
+        return () => document.removeEventListener("mousedown", handleClick);
+    }, [isMenuOpen]);
 
     const currentSection = useMemo(() => {
         const match = [...NAV_ITEMS]
@@ -67,7 +79,7 @@ export function DashboardHeader({ user }: { user: User }) {
                     {currentSection}
                 </p>
 
-                <div className="relative md:hidden">
+                <div ref={menuRef} className="relative md:hidden">
                     <button
                         type="button"
                         onClick={() => setIsMenuOpen((prev) => !prev)}

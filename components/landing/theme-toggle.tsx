@@ -12,12 +12,12 @@ export function ThemeToggle() {
       type="button"
       onClick={() => setTheme(next)}
       aria-label={`Switch to ${next} mode`}
-      className="inline-flex items-center justify-center rounded-full border border-neutral-200 bg-neutral-50 p-2.5 text-neutral-600 transition-colors hover:border-neutral-300 hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:bg-neutral-700"
+      className="inline-flex items-center justify-center rounded-full border border-neutral-200 bg-neutral-50 p-1.5 text-neutral-600 transition-colors hover:border-neutral-300 hover:bg-neutral-100 sm:p-2.5 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:bg-neutral-700"
     >
       {resolvedTheme === "dark" ? (
-        <Sun className="h-4 w-4" />
+        <Sun className="h-3 w-3 sm:h-4 sm:w-4" />
       ) : (
-        <Moon className="h-4 w-4" />
+        <Moon className="h-3 w-3 sm:h-4 sm:w-4" />
       )}
     </button>
   );

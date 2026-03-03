@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -9,21 +8,6 @@ export const metadata: Metadata = {
   description:
     "Privacy policy and terms and conditions for kno.li: data handling, account usage, app policies, and legal information.",
 };
-
-const sectionIds = [
-  { id: "privacy", title: "Privacy Policy" },
-  { id: "account-data", title: "Account data" },
-  { id: "analytics", title: "Analytics" },
-  { id: "ip-geo", title: "IP & geolocation" },
-  { id: "terms", title: "Terms & Conditions" },
-  { id: "username-policy", title: "Username policy" },
-  { id: "app-policies", title: "App policies" },
-  { id: "acceptable-use", title: "Acceptable use" },
-  { id: "billing", title: "Billing and plans" },
-  { id: "custom-domains", title: "Custom domains" },
-  { id: "analytics-privacy", title: "Analytics and privacy" },
-  { id: "enforcement", title: "Enforcement" },
-];
 
 export default function TncPage() {
   return (
@@ -41,17 +25,6 @@ export default function TncPage() {
             terms that apply when you use our service. By using kno.li you agree
             to both.
           </p>
-          <nav className="mt-4 flex flex-wrap gap-2">
-            {sectionIds.map(({ id, title }) => (
-              <Link
-                key={id}
-                href={`#${id}`}
-                className="rounded border border-border bg-muted/50 px-2.5 py-1 text-xs text-muted-foreground transition hover:border-foreground/30 hover:text-foreground"
-              >
-                {title}
-              </Link>
-            ))}
-          </nav>
         </header>
 
         <article className="space-y-8 text-sm text-muted-foreground">

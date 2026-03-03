@@ -49,11 +49,11 @@ export function HeroSection({ githubPill }: { githubPill: ReactNode }) {
   }));
 
   return (
-    <section className="px-4 pb-12 pt-10 sm:pb-20 sm:pt-20">
+    <section className="flex min-h-[100dvh] flex-col justify-center px-4 pb-8 sm:min-h-0 sm:pb-20 sm:pt-20">
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center text-center">
         <FeatureCarousel items={carouselItems} galleryOnly className="mt-1" />
 
-        <div className="mt-6 sm:mt-10">{githubPill}</div>
+        <div className="mt-5 sm:mt-10">{githubPill}</div>
 
         <div className="mt-4 flex min-h-[4.5rem] items-center sm:mt-6 sm:min-h-[7.5rem]">
           <h1 className="w-full text-3xl font-light tracking-tight text-foreground sm:text-5xl md:text-6xl">
