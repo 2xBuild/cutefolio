@@ -46,7 +46,7 @@ async function hasMatchingVerificationTxt(domain: string, token: string): Promis
   return false;
 }
 
-const VERCEL_CNAME_TARGET = "cname.vercel-dns.com";
+const VERCEL_DNS_TARGET = "216.198.79.1";
 
 export async function getAppDomains(input: { ownerId: string; appId: string }) {
   const app = await findAppByIdForOwner(input.appId, input.ownerId);
@@ -87,7 +87,7 @@ export async function addCustomDomain(input: {
   }
 
   const dnsTarget = isVercelApiConfigured()
-    ? VERCEL_CNAME_TARGET
+    ? VERCEL_DNS_TARGET
     : (process.env.CUSTOM_DOMAIN_CNAME_TARGET ?? "cname.kno.li");
 
   if (isVercelApiConfigured()) {
@@ -113,9 +113,9 @@ export async function addCustomDomain(input: {
     ok: true as const,
     domain: created,
     instructions: {
-      type: "TXT",
+      type: "A",
       name: input.domain,
-      value: created.verificationToken,
+      value: dnsTarget,
       cnameTarget: dnsTarget,
     },
   };
@@ -146,14 +146,9 @@ export async function verifyCustomDomain(input: {
       return {
         ok: false as const,
         code: "verification_failed" as const,
-        message: "Domain not yet verified. Point your DNS to cname.vercel-dns.com and retry.",
+        message: "Domain not yet verified. Add an A record pointing to 216.198.79.1 and retry.",
         domain: failed ?? domain,
         vercelVerification: configResult.verification,
-        instructions: {
-          type: "TXT",
-          name: domain.domain,
-          value: domain.verificationToken,
-        },
       };
     }
 

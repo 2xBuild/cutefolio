@@ -1,6 +1,13 @@
 /** App logo path for favicon, headers, and branding. */
 export const APP_LOGO_PATH = "/logo.png";
 
+/**
+ * Custom header set by middleware with the actual host from the request URL.
+ * Used for custom domain routing because Next.js rewrites can overwrite
+ * x-forwarded-host in production.
+ */
+export const X_REQUEST_HOST = "x-request-host";
+
 export const FIRST_PARTY_HOSTS = new Set([
   "kno.li",
   "www.kno.li",

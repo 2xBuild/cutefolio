@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { buildMainSiteOgImage } from "@/lib/og/main-site-image";
 import { buildTemplateProfileOgImage } from "@/lib/og/profile-template-image";
 import { OG_IMAGE_CONTENT_TYPE, OG_IMAGE_SIZE } from "@/lib/og/shared";
-import { isFirstPartyHost, normalizeHost } from "@/lib/constants";
+import { isFirstPartyHost, normalizeHost, X_REQUEST_HOST } from "@/lib/constants";
 import { fetchProfileFromCustomDomain } from "@/lib/profile";
 
 export const runtime = "nodejs";
@@ -14,7 +14,9 @@ export const contentType = OG_IMAGE_CONTENT_TYPE;
 export default async function Image() {
   const requestHeaders = await headers();
   const rawHost =
-    requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host");
+    requestHeaders.get(X_REQUEST_HOST) ??
+    requestHeaders.get("x-forwarded-host") ??
+    requestHeaders.get("host");
   const host = normalizeHost(rawHost);
 
   if (host && !isFirstPartyHost(host)) {

@@ -13,7 +13,7 @@ import { getTemplateEntry, DEFAULT_TEMPLATE_ID } from "@/templates";
 import { InvalidConfig, NotFound } from "@/components/errors";
 import { trackPageViewForRequest } from "@/lib/services/analytics-service";
 import { ProfileLinkTracker } from "@/components/analytics/profile-link-tracker";
-import { FIRST_PARTY_HOSTS } from "@/lib/constants";
+import { FIRST_PARTY_HOSTS, X_REQUEST_HOST } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "kno.li | Host your portfolio",
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 export default async function Home() {
   const requestHeadersList = await headers();
   const hostHeader =
+    requestHeadersList.get(X_REQUEST_HOST) ??
     requestHeadersList.get("x-forwarded-host") ??
     requestHeadersList.get("host") ??
     "";

@@ -49,76 +49,93 @@ function DnsInstructionsPanel({
   instructions: DnsInstructions;
   vercelVerification?: VercelVerification[];
 }) {
-  const isVercelTarget = instructions.cnameTarget === "cname.vercel-dns.com";
-  const isApexDomain = !domain.includes(".") || domain.split(".").length === 2;
+  const isVercelTarget = instructions.cnameTarget === "216.198.79.1";
 
   return (
     <div className="space-y-4 rounded-lg bg-muted/20 p-4">
       <div className="flex items-start gap-2">
         <Info className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
         <p className="text-sm font-medium">
-          Add these DNS records at your domain registrar for <span className="font-semibold">{domain}</span>
+          Add {isVercelTarget ? "this" : "these"} DNS record{isVercelTarget ? "" : "s"} at your domain registrar for <span className="font-semibold">{domain}</span>
         </p>
       </div>
 
       <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          Step 1 — {isVercelTarget && isApexDomain ? "A Record" : "CNAME Record"} <span className="font-normal">(routes traffic to us)</span>
-        </p>
-        <div className="overflow-hidden rounded-md bg-card">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-left text-xs uppercase tracking-wider text-muted-foreground/90">
-                <th className="px-3 py-2">Type</th>
-                <th className="px-3 py-2">Name / Host</th>
-                <th className="px-3 py-2">Value / Points to</th>
-              </tr>
-            </thead>
-            <tbody>
-              {isVercelTarget && isApexDomain ? (
-                <tr>
-                  <td className="px-3 py-2.5">
-                    <CopyableValue value="A" label="type" mono />
-                  </td>
-                  <td className="px-3 py-2.5">
-                    <CopyableValue value="@" label="host" mono />
-                  </td>
-                  <td className="px-3 py-2.5">
-                    <CopyableValue value="76.76.21.21" label="A record value" mono />
-                  </td>
-                </tr>
-              ) : (
-                <tr>
-                  <td className="px-3 py-2.5">
-                    <CopyableValue value="CNAME" label="type" mono />
-                  </td>
-                  <td className="px-3 py-2.5">
-                    <CopyableValue value={isApexDomain ? "@" : domain.split(".")[0] ?? "@"} label="host" mono />
-                    {isApexDomain && <span className="ml-1.5 text-xs text-muted-foreground">or leave empty</span>}
-                  </td>
-                  <td className="px-3 py-2.5">
-                    <CopyableValue value={instructions.cnameTarget} label="CNAME target" mono />
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-        {isVercelTarget && isApexDomain ? (
-          <p className="text-xs text-muted-foreground">
-            For apex/root domains, use an <strong>A record</strong> pointing to Vercel&apos;s IP. SSL is provisioned automatically once DNS propagates.
-          </p>
+        {isVercelTarget ? (
+          <>
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              A Record <span className="font-normal">(routes traffic to us)</span>
+            </p>
+            <div className="overflow-hidden rounded-md bg-card">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-xs uppercase tracking-wider text-muted-foreground/90">
+                    <th className="px-3 py-2">Type</th>
+                    <th className="px-3 py-2">Name / Host</th>
+                    <th className="px-3 py-2">Value / Points to</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="px-3 py-2.5">
+                      <CopyableValue value="A" label="type" mono />
+                    </td>
+                    <td className="px-3 py-2.5">
+                      <CopyableValue value="@" label="host" mono />
+                      <span className="ml-1.5 text-xs text-muted-foreground">or leave empty</span>
+                    </td>
+                    <td className="px-3 py-2.5">
+                      <CopyableValue value="216.198.79.1" label="A record value" mono />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              SSL is provisioned automatically once DNS propagates. After adding the record, click <strong>Verify</strong> below.
+            </p>
+          </>
         ) : (
-          <p className="text-xs text-muted-foreground">
-            Some providers (like GoDaddy or Namecheap) don&apos;t support CNAME on root domains. If that&apos;s the case, use a subdomain like <code className="rounded bg-muted px-1 font-mono">www</code> instead, or look for a &quot;CNAME flattening&quot; / &quot;ALIAS&quot; option.
-          </p>
+          <>
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Step 1 — CNAME Record <span className="font-normal">(routes traffic to us)</span>
+            </p>
+            <div className="overflow-hidden rounded-md bg-card">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-xs uppercase tracking-wider text-muted-foreground/90">
+                    <th className="px-3 py-2">Type</th>
+                    <th className="px-3 py-2">Name / Host</th>
+                    <th className="px-3 py-2">Value / Points to</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="px-3 py-2.5">
+                      <CopyableValue value="CNAME" label="type" mono />
+                    </td>
+                    <td className="px-3 py-2.5">
+                      <CopyableValue value="@" label="host" mono />
+                      <span className="ml-1.5 text-xs text-muted-foreground">or leave empty</span>
+                    </td>
+                    <td className="px-3 py-2.5">
+                      <CopyableValue value={instructions.cnameTarget} label="CNAME target" mono />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Some providers (like GoDaddy or Namecheap) don&apos;t support CNAME on root domains. If that&apos;s the case, use a subdomain like <code className="rounded bg-muted px-1 font-mono">www</code> instead, or look for a &quot;CNAME flattening&quot; / &quot;ALIAS&quot; option.
+            </p>
+          </>
         )}
       </div>
 
       {vercelVerification && vercelVerification.length > 0 && (
         <div className="space-y-2">
           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Step 2 — Verification Record <span className="font-normal">(required by hosting provider)</span>
+            Verification Record <span className="font-normal">(required by hosting provider)</span>
           </p>
           <div className="overflow-hidden rounded-md bg-card">
             <table className="w-full text-sm">
@@ -152,7 +169,7 @@ function DnsInstructionsPanel({
         </div>
       )}
 
-      {(!vercelVerification || vercelVerification.length === 0) && (
+      {!isVercelTarget && (!vercelVerification || vercelVerification.length === 0) && (
         <div className="space-y-2">
           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Step 2 — TXT Record <span className="font-normal">(proves you own the domain)</span>

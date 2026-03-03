@@ -11,7 +11,7 @@ import {
 } from "@/lib/tracking/visitor-fingerprint";
 import { resolveCountryCode } from "@/lib/tracking/geo";
 import { getRateLimitKey, rateLimit } from "@/lib/rate-limit";
-import { FIRST_PARTY_HOSTS, normalizeHost } from "@/lib/constants";
+import { FIRST_PARTY_HOSTS, normalizeHost, X_REQUEST_HOST } from "@/lib/constants";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -48,7 +48,9 @@ function sanitizeMetadata(raw: Record<string, unknown> | undefined): Record<stri
 }
 
 async function resolveAppIdFromContext(payloadPath: string, headers: Headers): Promise<string | null> {
-  const host = normalizeHost(headers.get("x-forwarded-host") ?? headers.get("host"));
+  const host = normalizeHost(
+    headers.get(X_REQUEST_HOST) ?? headers.get("x-forwarded-host") ?? headers.get("host")
+  );
   if (!host) return null;
 
   if (FIRST_PARTY_HOSTS.has(host)) {
