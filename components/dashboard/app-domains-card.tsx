@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { ShieldCheck, Trash2 } from "lucide-react";
+import { ExternalLink, Info, ShieldCheck, Trash2 } from "lucide-react";
 import { Loader } from "@/components/ui/loader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { CopyableValue } from "@/components/ui/copyable-value";
 
 interface DomainRecord {
   id: string;
@@ -17,12 +18,180 @@ interface DomainRecord {
   isPrimary: boolean;
 }
 
+interface DnsInstructions {
+  type: string;
+  name: string;
+  value: string;
+  cnameTarget: string;
+}
+
 interface AppDomainsCardProps {
   appId: string;
   appSlug: string;
   firstPartyDomains: string[];
   initialDomains: DomainRecord[];
   canConnectCustomDomain: boolean;
+}
+
+function DnsInstructionsPanel({ domain, instructions }: { domain: string; instructions: DnsInstructions }) {
+  return (
+    <div className="space-y-4 rounded-lg bg-muted/20 p-4">
+      <div className="flex items-start gap-2">
+        <Info className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+        <p className="text-sm font-medium">
+          Add these two DNS records at your domain registrar for <span className="font-semibold">{domain}</span>
+        </p>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          Step 1 — CNAME Record <span className="font-normal">(routes traffic to us)</span>
+        </p>
+        <div className="overflow-hidden rounded-md bg-card">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left text-xs uppercase tracking-wider text-muted-foreground/90">
+                <th className="px-3 py-2">Type</th>
+                <th className="px-3 py-2">Name / Host</th>
+                <th className="px-3 py-2">Value / Points to</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="px-3 py-2.5">
+                  <CopyableValue value="CNAME" label="type" mono />
+                </td>
+                <td className="px-3 py-2.5">
+                  <CopyableValue value="@" label="host" mono />
+                  <span className="ml-1.5 text-xs text-muted-foreground">or leave empty</span>
+                </td>
+                <td className="px-3 py-2.5">
+                  <CopyableValue value={instructions.cnameTarget} label="CNAME target" mono />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          Some providers (like GoDaddy or Namecheap) don&apos;t support CNAME on root domains. If that&apos;s the case, use a subdomain like <code className="rounded bg-muted px-1 font-mono">www</code> instead, or look for a &quot;CNAME flattening&quot; / &quot;ALIAS&quot; option.
+        </p>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          Step 2 — TXT Record <span className="font-normal">(proves you own the domain)</span>
+        </p>
+        <div className="overflow-hidden rounded-md bg-card">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left text-xs uppercase tracking-wider text-muted-foreground/90">
+                <th className="px-3 py-2">Type</th>
+                <th className="px-3 py-2">Name / Host</th>
+                <th className="px-3 py-2">Value / Content</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="px-3 py-2.5">
+                  <CopyableValue value="TXT" label="type" mono />
+                </td>
+                <td className="px-3 py-2.5">
+                  <CopyableValue value={instructions.name} label="TXT host" mono />
+                </td>
+                <td className="px-3 py-2.5">
+                  <CopyableValue value={instructions.value} label="TXT value" mono />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          DNS changes can take up to 24–48 hours to propagate. After adding both records, click <strong>Verify</strong> below.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function DomainRow({
+  domain,
+  isMutating,
+  onVerify,
+  onDelete,
+}: {
+  domain: DomainRecord;
+  isMutating: boolean;
+  onVerify: (id: string) => void;
+  onDelete: (id: string) => void;
+}) {
+  const [expanded, setExpanded] = useState(domain.status !== "active");
+
+  const instructions: DnsInstructions = {
+    type: "TXT",
+    name: `_kno-li-verify.${domain.domain}`,
+    value: domain.verificationToken,
+    cnameTarget: domain.dnsTarget,
+  };
+
+  return (
+    <div className="space-y-3 border-b border-border py-4 first:pt-0 last:border-b-0 last:pb-0">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <p className="font-medium">{domain.domain}</p>
+          <Badge variant={domain.status === "active" ? "success" : "warning"}>
+            {domain.status === "active" ? "Active" : domain.status === "pending_verification" ? "Pending" : domain.status}
+          </Badge>
+          {domain.status === "active" && (
+            <a
+              href={`https://${domain.domain}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          )}
+        </div>
+        <div className="flex gap-2">
+          {domain.status !== "active" && (
+            <>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setExpanded((v) => !v)}
+              >
+                {expanded ? "Hide" : "Show"} DNS setup
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                className="gap-1"
+                disabled={isMutating}
+                onClick={() => onVerify(domain.id)}
+              >
+                <ShieldCheck className="h-3.5 w-3.5" />
+                Verify
+              </Button>
+            </>
+          )}
+          <Button
+            size="sm"
+            variant="outline"
+            className="gap-1"
+            disabled={isMutating}
+            onClick={() => onDelete(domain.id)}
+          >
+            <Trash2 className="h-3.5 w-3.5" />
+            Remove
+          </Button>
+        </div>
+      </div>
+
+      {expanded && domain.status !== "active" && (
+        <DnsInstructionsPanel domain={domain.domain} instructions={instructions} />
+      )}
+    </div>
+  );
 }
 
 export function AppDomainsCard({
@@ -59,6 +228,7 @@ export function AppDomainsCard({
   };
 
   const handleAddDomain = async () => {
+    const domainValue = domainInput.trim().toLowerCase();
     setIsMutatingDomain(true);
     setError(null);
     setMessage(null);
@@ -66,12 +236,11 @@ export function AppDomainsCard({
       const res = await fetch(`/api/apps/${appId}/domains`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ domain: domainInput.trim().toLowerCase(), isPrimary: false }),
+        body: JSON.stringify({ domain: domainValue, isPrimary: false }),
       });
       const data = (await res.json()) as {
         error?: string;
         code?: string;
-        instructions?: { name?: string; value?: string; cnameTarget?: string };
       };
       if (!res.ok) {
         const msg =
@@ -83,11 +252,7 @@ export function AppDomainsCard({
 
       setDomainInput("");
       await loadDomains();
-      setMessage(
-        data.instructions
-          ? `Add TXT ${data.instructions.name}=${data.instructions.value} and CNAME -> ${data.instructions.cnameTarget}.`
-          : "Domain added."
-      );
+      setMessage("Domain added! Configure the DNS records shown below, then click Verify.");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to add domain.");
     } finally {
@@ -106,7 +271,7 @@ export function AppDomainsCard({
       const data = (await res.json()) as { error?: string };
       if (!res.ok) throw new Error(data.error ?? "Failed to verify domain.");
       await loadDomains();
-      setMessage("Domain verified and activated.");
+      setMessage("Domain verified and activated!");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to verify domain.");
     } finally {
@@ -138,12 +303,12 @@ export function AppDomainsCard({
       <CardHeader>
         <CardTitle>Domains</CardTitle>
         <CardDescription>
-          Connect domains for {appSlug} and get DNS setup details here.
+          Connect custom domains to <strong>{appSlug}</strong>. Your site will be served from any active domain.
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-5">
         <div className="space-y-2">
-          <p className="text-xs uppercase tracking-wide text-muted-foreground">First-party domains</p>
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">Default domains</p>
           <div className="flex flex-wrap gap-2">
             {firstPartyDomains.map((domain) => (
               <Badge key={domain} variant="warning">
@@ -153,7 +318,7 @@ export function AppDomainsCard({
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-3">
           <p className="text-xs uppercase tracking-wide text-muted-foreground">Custom domains</p>
           {!canConnectCustomDomain && (
             <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200">
@@ -167,6 +332,11 @@ export function AppDomainsCard({
               value={domainInput}
               onChange={(event) => setDomainInput(event.target.value)}
               disabled={!canConnectCustomDomain || isMutatingDomain}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && domainInput.trim() && canConnectCustomDomain && !isMutatingDomain) {
+                  handleAddDomain();
+                }
+              }}
             />
             <Button
               onClick={handleAddDomain}
@@ -184,52 +354,21 @@ export function AppDomainsCard({
           ) : domains.length === 0 ? (
             <p className="text-sm text-muted-foreground">No custom domains configured.</p>
           ) : (
-            <div className="space-y-2">
+            <div>
               {domains.map((domain) => (
-                <div
+                <DomainRow
                   key={domain.id}
-                  className="flex flex-wrap items-center justify-between gap-3 rounded-md border px-3 py-2"
-                >
-                  <div>
-                    <p className="font-medium">{domain.domain}</p>
-                    <p className="text-xs text-muted-foreground">
-                      status: {domain.status} • CNAME target: {domain.dnsTarget}
-                    </p>
-                  </div>
-                  <div className="flex gap-2">
-                    <Badge variant={domain.status === "active" ? "success" : "warning"}>
-                      {domain.status}
-                    </Badge>
-                    {domain.status !== "active" && (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="gap-1"
-                        disabled={isMutatingDomain}
-                        onClick={() => handleVerify(domain.id)}
-                      >
-                        <ShieldCheck className="h-3.5 w-3.5" />
-                        Verify
-                      </Button>
-                    )}
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="gap-1"
-                      disabled={isMutatingDomain}
-                      onClick={() => handleDelete(domain.id)}
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
-                      Remove
-                    </Button>
-                  </div>
-                </div>
+                  domain={domain}
+                  isMutating={isMutatingDomain}
+                  onVerify={handleVerify}
+                  onDelete={handleDelete}
+                />
               ))}
             </div>
           )}
         </div>
 
-        {message && <p className="text-sm text-emerald-600">{message}</p>}
+        {message && <p className="text-sm text-emerald-600 dark:text-emerald-400">{message}</p>}
         {error && <p className="text-sm text-destructive">{error}</p>}
       </CardContent>
     </Card>

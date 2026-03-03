@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth";
 import { getUserApp } from "@/lib/services/apps-service";
 import { listAppDomains } from "@/lib/repositories/domains-repo";
 import { getPlanFeatures } from "@/lib/gating/plan-features";
-import { FIRST_PARTY_HOSTS } from "@/lib/constants";
+import { DISPLAY_DOMAINS } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,9 +36,7 @@ export default async function ManageAppDetailsPage({ params }: PageProps) {
   const currentContent = record.currentContent;
   const domains = await listAppDomains(app.id);
   const canConnectCustomDomain = getPlanFeatures(session.user.planTier).canAttachCustomDomain;
-  const firstPartyDomains = [...FIRST_PARTY_HOSTS].filter(
-    (host) => host !== "localhost" && host !== "127.0.0.1"
-  );
+  const firstPartyDomains = DISPLAY_DOMAINS;
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-6 md:p-8">

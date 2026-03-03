@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { StatCard } from "@/components/dashboard/stat-card";
+import { AnalyticsAppSelector, type AnalyticsApp } from "@/components/dashboard/analytics-app-selector";
 
 /** ISO 3166-1 alpha-2 country code → flag emoji (e.g. "US" → "🇺🇸"). */
 function countryFlag(countryCode: string): string {
@@ -273,45 +274,60 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
     );
   }
 
+  const selectedApp = apps.find((a) => a.id === selectedAppId)!;
+  const selectorApps: AnalyticsApp[] = apps.map((a) => ({
+    id: a.id,
+    slug: a.slug,
+    type: a.type,
+    status: a.status,
+  }));
+
   return (
     <div className="flex flex-col gap-6 p-8">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Analytics</h1>
-          <p className="text-muted-foreground">
-            {analytics.app.slug} • {analytics.range} • plan: {session.user.planTier}
-          </p>
-          {analytics.locks.rangeRestricted ? (
-            <p className="text-xs text-amber-600">
-              Your current plan is limited to {analytics.range}.{" "}
-              <Link href="/dashboard/plan" className="underline underline-offset-2">
-                Upgrade
-              </Link>{" "}
-              for longer ranges and full breakdowns.
-            </p>
-          ) : null}
+      <header className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold tracking-tight">Analytics</h1>
+            <Badge variant="success" className="text-xs">
+              {selectedApp.type === "portfolio" ? "Portfolio" : "Linkfolio"}
+            </Badge>
+            {selectedApp.status === "draft" && (
+              <Badge variant="warning" className="text-xs">Draft</Badge>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            {(["7d", "30d", "90d"] as const).map((candidate) => (
+              <Link
+                key={candidate}
+                href={`/dashboard/analytics?appId=${selectedAppId}&range=${candidate}`}
+              >
+                <Button variant={candidate === analytics.range ? "default" : "outline"} size="sm">
+                  {candidate}
+                </Button>
+              </Link>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-wrap gap-2">
-          {(["7d", "30d", "90d"] as const).map((candidate) => (
-            <Link
-              key={candidate}
-              href={`/dashboard/analytics?appId=${selectedAppId}&range=${candidate}`}
-            >
-              <Button variant={candidate === analytics.range ? "default" : "outline"} size="sm">
-                {candidate}
-              </Button>
-            </Link>
-          ))}
+
+        {analytics.locks.rangeRestricted && (
+          <p className="text-xs text-amber-600">
+            Your current plan is limited to {analytics.range}.{" "}
+            <Link href="/dashboard/plan" className="underline underline-offset-2">
+              Upgrade
+            </Link>{" "}
+            for longer ranges and full breakdowns.
+          </p>
+        )}
+
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-muted-foreground">Showing analytics for</span>
+          <AnalyticsAppSelector
+            apps={selectorApps}
+            selectedAppId={selectedAppId}
+            range={analytics.range}
+          />
         </div>
       </header>
-
-      <div className="flex flex-wrap gap-2">
-        {apps.map((app) => (
-          <Link key={app.id} href={`/dashboard/analytics?appId=${app.id}&range=${analytics.range}`}>
-            <Badge variant={app.id === selectedAppId ? "default" : "warning"}>{app.slug}</Badge>
-          </Link>
-        ))}
-      </div>
 
       <div className="grid gap-4 md:grid-cols-3">
         <StatCard label="Page views" value={analytics.summary.pageViews} />

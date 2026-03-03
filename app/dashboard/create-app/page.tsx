@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { templates, appTypeToCategory } from "@/templates";
+import { DISPLAY_DOMAINS } from "@/lib/constants";
 
 type AppType = "portfolio" | "link-organiser";
 
@@ -43,7 +44,7 @@ export default function CreateAppPage() {
   const [error, setError] = useState<string | null>(null);
   const [acceptUsernamePolicy, setAcceptUsernamePolicy] = useState(false);
 
-  const firstPartyDomains = ["kno.li", "about.ec", "it-iz.me", "wanna-hire.me"];
+  const firstPartyDomains = DISPLAY_DOMAINS;
 
   const minSlugLength = session?.user?.planTier === "free" ? 4 : 2;
 

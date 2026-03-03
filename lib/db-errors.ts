@@ -39,7 +39,9 @@ function collectErrorData(input: unknown): { codes: string[]; message: string } 
   };
 }
 
-export function getDatabaseErrorHint(error: unknown): string {
+const GENERIC_DB_ERROR = "Something went wrong. Please try again later.";
+
+function getDetailedHint(error: unknown): string {
   const data = collectErrorData(error);
 
   if (data.codes.includes("42P01")) {
@@ -67,4 +69,11 @@ export function getDatabaseErrorHint(error: unknown): string {
   }
 
   return "Database query failed. Verify DATABASE_URL and ensure the latest migrations are applied.";
+}
+
+export function getDatabaseErrorHint(error: unknown): string {
+  if (process.env.NODE_ENV === "development") {
+    return getDetailedHint(error);
+  }
+  return GENERIC_DB_ERROR;
 }

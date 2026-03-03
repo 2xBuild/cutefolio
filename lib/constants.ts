@@ -15,6 +15,11 @@ export const FIRST_PARTY_HOSTS = new Set([
   
 ]);
 
+/** Non-www, non-local domains shown to users (e.g. in default-domains badges). */
+export const DISPLAY_DOMAINS = [...FIRST_PARTY_HOSTS].filter(
+  (h) => !h.startsWith("www.") && h !== "localhost" && h !== "127.0.0.1",
+);
+
 export function isFirstPartyHost(host: string): boolean {
   return FIRST_PARTY_HOSTS.has(host.split(":")[0]?.toLowerCase() ?? "");
 }

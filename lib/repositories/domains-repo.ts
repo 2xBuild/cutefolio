@@ -114,12 +114,7 @@ export async function markAppDomainFailed(
 
 export async function removeAppDomain(appId: string, domainId: string): Promise<boolean> {
   const [row] = await db
-    .update(appDomains)
-    .set({
-      status: "removed",
-      isPrimary: false,
-      updatedAt: new Date(),
-    })
+    .delete(appDomains)
     .where(and(eq(appDomains.id, domainId), eq(appDomains.appId, appId)))
     .returning({ id: appDomains.id });
 

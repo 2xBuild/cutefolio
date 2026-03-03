@@ -22,15 +22,15 @@ function SwipeText() {
   }, []);
 
   return (
-    <span className="relative inline-flex h-[1.2em] w-[10ch] items-end justify-center overflow-hidden align-bottom">
+    <span className="relative inline-flex h-[1.2em] w-[10ch] items-center justify-center overflow-hidden align-middle">
       <AnimatePresence mode="popLayout">
         <motion.span
           key={index}
-          initial={{ y: "110%" }}
-          animate={{ y: "0%" }}
-          exit={{ y: "-110%" }}
+          initial={{ y: "100%", opacity: 0 }}
+          animate={{ y: "0%", opacity: 1 }}
+          exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="inline-block whitespace-nowrap rounded-md bg-yellow-200/60 px-2 text-foreground dark:bg-yellow-400/20"
+          className="inline-block whitespace-nowrap rounded-md bg-yellow-200/60 px-2 text-foreground dark:bg-green-500/30"
         >
           {SWIPE_WORDS[index]}
         </motion.span>

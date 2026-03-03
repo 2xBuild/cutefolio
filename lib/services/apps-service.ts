@@ -13,7 +13,7 @@ import {
 } from "@/lib/repositories/apps-repo";
 import { db } from "@/lib/db";
 import { findActiveDomainMapping } from "@/lib/repositories/domains-repo";
-import { isFirstPartyHost, FIRST_PARTY_HOSTS } from "@/lib/constants";
+import { isFirstPartyHost, DISPLAY_DOMAINS } from "@/lib/constants";
 import { canCreateHostedApp, getPlanFeatures } from "@/lib/gating/plan-features";
 import { users, type AppStatus, type AppType, type PlanTier } from "@/db/schema";
 import { normalizeAppSlug } from "@/lib/validators/app-schema";
@@ -113,9 +113,6 @@ export async function createAppForUser(input: {
   return { ok: true, appId: created.app.id, slug: created.app.slug };
 }
 
-const DISPLAY_DOMAINS = [...FIRST_PARTY_HOSTS].filter(
-  (h) => h !== "localhost" && h !== "127.0.0.1"
-);
 
 export async function listUserApps(ownerId: string) {
   try {
