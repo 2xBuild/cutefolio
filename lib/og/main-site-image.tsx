@@ -5,14 +5,15 @@ import {
   loadGeistPixelFont,
   readPublicImageAsDataUrl,
 } from "@/lib/og/shared";
+import { APP_LOGO_PATH } from "@/lib/constants";
 
-const BRAND_NAME = "cutefolio";
-const TAGLINE = "Let the world know you better";
+const BRAND_NAME = "cutefol.io";
+const TAGLINE = "folios that actually look cute";
 
 export async function buildMainSiteOgImage(): Promise<Response> {
   const [fonts, logoSrc] = await Promise.all([
     loadGeistPixelFont(),
-    readPublicImageAsDataUrl("/flat_logo.png"),
+    readPublicImageAsDataUrl(APP_LOGO_PATH),
   ]);
 
   return new ImageResponse(
@@ -25,8 +26,6 @@ export async function buildMainSiteOgImage(): Promise<Response> {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          paddingLeft: 52,
-          paddingRight: 52,
           background: "#000000",
           color: "#ffffff",
         }}
@@ -36,55 +35,35 @@ export async function buildMainSiteOgImage(): Promise<Response> {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <div
             style={{
               display: "flex",
+              flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              gap: 24,
+              gap: 20,
             }}
           >
+            {logoSrc ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={logoSrc}
+                alt="cutefolio logo"
+                width={120}
+                height={120}
+                style={{
+                  width: 120,
+                  height: 120,
+                  objectFit: "contain",
+                }}
+              />
+            ) : null}
             <div
               style={{
-                width: 140,
-                height: 140,
-                borderRadius: 9999,
-                overflow: "hidden",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {logoSrc ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={logoSrc}
-                  alt="cutefolio logo"
-                  width={140}
-                  height={140}
-                  style={{
-                    width: 140,
-                    height: 140,
-                    objectFit: "cover",
-                  }}
-                />
-              ) : (
-                <span
-                  style={{
-                    fontSize: 70,
-                    color: "#ffffff",
-                    fontFamily: `${GEIST_PIXEL_FONT_NAME}, monospace`,
-                  }}
-                >
-                  k
-                </span>
-              )}
-            </div>
-            <div
-              style={{
-                fontSize: 122,
+                fontSize: 72,
                 lineHeight: 1,
                 letterSpacing: "-0.04em",
                 color: "#ffffff",
@@ -96,13 +75,13 @@ export async function buildMainSiteOgImage(): Promise<Response> {
           </div>
           <div
             style={{
-              marginTop: 7,
-              marginLeft: 38,
-              fontSize: 34,
+              marginTop: 0,
+              marginLeft: 34, 
+              fontSize: 32,
               lineHeight: 1.3,
               color: "#ffffff",
               fontFamily: "Inter, Arial, Helvetica, sans-serif",
-              textAlign: "left",
+              textAlign: "center",
             }}
           >
             {TAGLINE}
