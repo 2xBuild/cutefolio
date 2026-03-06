@@ -1,4 +1,4 @@
-# Kno.li
+# cutefolio
 
 Host portfolios and linkfolios for yourself, your brand, or your SaaS. Includes per-profile analytics, custom domains, customizable templates, and dynamic OG images.
 
@@ -80,7 +80,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ```
 app/              # Next.js app router
-├── [username]/   # Profile pages (kno.li/username)
+├── [username]/   # Profile pages (cutefolio/username)
 ├── api/          # API routes (auth, apps, analytics, polar, og)
 ├── dashboard/    # Dashboard (manage apps, analytics, plan, profile)
 ├── login/        # Login

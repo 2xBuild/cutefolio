@@ -32,7 +32,7 @@ export function SiteFooter() {
               className="h-10 w-10 sm:h-16 sm:w-16 shrink-0 rounded-full object-contain"
             />
             <span className="text-2xl sm:text-5xl font-bold tracking-tight text-foreground">
-              kno.li
+              cutefolio
             </span>
           </Link>
         </div>

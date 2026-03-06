@@ -13,7 +13,7 @@ export function resolveProfileImgUrl(
 ): string {
   if (img.startsWith("http://") || img.startsWith("https://")) return img;
   if (img.startsWith("/")) {
-    const base = process.env.SITE_URL ?? "https://kno.li";
+    const base = process.env.SITE_URL ?? "https://cutefolio";
     try {
       return new URL(img, base).toString();
     } catch {
@@ -31,7 +31,7 @@ function fallbackHostedHost(): string {
       // fall through
     }
   }
-  return "kno.li";
+  return "cutefolio";
 }
 
 export const fetchProfile = cache(async function fetchProfile(

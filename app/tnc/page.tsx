@@ -4,9 +4,9 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Privacy & Terms · kno.li",
+  title: "Privacy & Terms · cutefolio",
   description:
-    "Privacy policy and terms and conditions for kno.li: data handling, account usage, app policies, and legal information.",
+    "Privacy policy and terms and conditions for cutefolio: data handling, account usage, app policies, and legal information.",
 };
 
 export default function TncPage() {
@@ -21,8 +21,8 @@ export default function TncPage() {
             Last updated: February 28, 2026.
           </p>
           <p className="mt-3 text-sm text-muted-foreground">
-            This page sets out how kno.li collects and uses your data, and the
-            terms that apply when you use our service. By using kno.li you agree
+            This page sets out how cutefolio collects and uses your data, and the
+            terms that apply when you use our service. By using cutefolio you agree
             to both.
           </p>
         </header>
@@ -60,7 +60,7 @@ export default function TncPage() {
               <p>
                 For apps on paid plans, we collect analytics about how your
                 public profile and links are used. This is done through
-                kno.li-owned API endpoints only; we do not use third-party
+                cutefolio-owned API endpoints only; we do not use third-party
                 tracking pixels or scripts for this. We use hashed
                 visitor/session identifiers so we can aggregate counts (e.g.
                 unique visitors, page views) without storing raw personal
@@ -95,7 +95,7 @@ export default function TncPage() {
               Terms and Conditions
             </h2>
             <p>
-              These terms govern your use of kno.li: account creation, app
+              These terms govern your use of cutefolio: account creation, app
               creation, usernames, custom domains, billing, and acceptable use.
               If you do not agree, please do not use the service.
             </p>
@@ -133,7 +133,7 @@ export default function TncPage() {
                 Acceptable use
               </h3>
               <p>
-                You must not use kno.li for spam, phishing, harassment,
+                You must not use cutefolio for spam, phishing, harassment,
                 illegal activity, or to violate the rights of others. You must
                 respect intellectual property and privacy. You are responsible
                 for complying with applicable laws in your jurisdiction. We
@@ -166,7 +166,7 @@ export default function TncPage() {
                 connect a domain: add it in your dashboard, then create a TXT
                 record on your domain with the
                 value we provide. Point a CNAME for your subdomain (or apex, if
-                supported) to the kno.li target we assign. After DNS
+                supported) to the cutefolio target we assign. After DNS
                 propagation, use the verify action in the dashboard. You are
                 responsible for maintaining valid DNS and for the domain's use
                 in line with these terms.
@@ -178,7 +178,7 @@ export default function TncPage() {
                 Analytics and privacy
               </h3>
               <p>
-                Analytics are collected in-house via kno.li APIs. We use hashed
+                Analytics are collected in-house via cutefolio APIs. We use hashed
                 visitor/session identifiers and do not expose raw personal
                 identifiers in the dashboard. Country-level data is stored in
                 aggregated form for reporting. For full details on what we
@@ -191,7 +191,7 @@ export default function TncPage() {
                 Enforcement and appeals
               </h3>
               <p>
-                kno.li may reclaim usernames, limit or remove apps, or suspend
+                cutefolio may reclaim usernames, limit or remove apps, or suspend
                 accounts when we reasonably believe the username or use violates
                 these terms or the law. For trademark or impersonation
                 disputes we may request proof of rights. If you believe an
@@ -204,7 +204,7 @@ export default function TncPage() {
 
           <p className="text-xs text-muted-foreground">
             Questions about privacy or terms can be sent via the support
-            channels linked in the app. Continued use of kno.li after changes
+            channels linked in the app. Continued use of cutefolio after changes
             to this page constitutes acceptance of the updated Privacy Policy
             and Terms and Conditions.
           </p>

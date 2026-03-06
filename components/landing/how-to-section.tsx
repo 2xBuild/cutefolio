@@ -27,7 +27,7 @@ export function HowToSection() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.4 }}
         >
-          Publish your profile on kno.li in minutes.
+          Publish your profile on cutefolio in minutes.
         </motion.h2>
 
         <motion.div
@@ -38,7 +38,7 @@ export function HowToSection() {
           transition={{ staggerChildren: 0.1 }}
         >
           <motion.article variants={card} className="max-w-sm">
-            <h3 className="mt-3 text-2xl font-semibold text-foreground">Host at kno.li</h3>
+            <h3 className="mt-3 text-2xl font-semibold text-foreground">Host at cutefolio</h3>
             <p className="mt-2 text-sm text-muted-foreground">
               Sign in with Google, edit with the full form, and publish without
               touching JSON.

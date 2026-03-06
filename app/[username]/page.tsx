@@ -85,17 +85,17 @@ export async function generateMetadata({ params }: PageProps) {
   const normalizedHost = host?.split(":")[0]?.toLowerCase();
   const ogImageUrl = normalizedHost
     ? `${protocol}://${normalizedHost}/${username}/opengraph-image`
-    : `${process.env.SITE_URL ?? "https://kno.li"}/${username}/opengraph-image`;
+    : `${process.env.SITE_URL ?? "https://cutefolio"}/${username}/opengraph-image`;
   const description = profile.desc_2 || profile.desc_3 || profile.desc_1;
 
   return {
-    title: `${displayName} | kno.li`,
+    title: `${displayName} | cutefolio`,
     description,
     icons: {
       icon: imgUrl,
     },
     openGraph: {
-      title: `${displayName} | kno.li`,
+      title: `${displayName} | cutefolio`,
       description,
       type: "profile",
       images: [
@@ -109,7 +109,7 @@ export async function generateMetadata({ params }: PageProps) {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${displayName} | kno.li`,
+      title: `${displayName} | cutefolio`,
       description,
       images: [ogImageUrl],
     },

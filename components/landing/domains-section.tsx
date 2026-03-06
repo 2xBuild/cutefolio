@@ -10,7 +10,7 @@ import {
 
 const FIRST_PARTY_DOMAINS = [
   {
-    name: "kno.li",
+    name: "cutefolio",
     tagline: "Default hosted domain",
     description: "Great starter for link pages and simple intros.",
   },

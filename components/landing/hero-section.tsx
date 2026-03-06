@@ -58,9 +58,7 @@ export function HeroSection({ githubPill }: { githubPill: ReactNode }) {
         <div className="mt-4 flex min-h-[4.5rem] items-center sm:mt-6 sm:min-h-[7.5rem]">
           <h1 className="w-full text-3xl font-light tracking-tight text-foreground sm:text-5xl md:text-6xl">
             <span className="dark:text-muted-foreground">
-              Let the world{" "}
-              <span className="font-bold text-foreground">kno</span>w{" "}
-              <SwipeText /> better.
+              folios that actually look cute.
             </span>
           </h1>
         </div>

@@ -7,7 +7,7 @@ import { fetchProfileFromCustomDomain } from "@/lib/profile";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-export const alt = "kno.li | Let the world know you better";
+export const alt = "cutefolio | Build and host your cute folio.";
 export const size = OG_IMAGE_SIZE;
 export const contentType = OG_IMAGE_CONTENT_TYPE;
 

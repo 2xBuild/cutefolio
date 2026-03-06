@@ -82,7 +82,7 @@ function renderPortfolioFallbackOgImage(data: PreparedOgProfile) {
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={data.brandLogoSrc}
-            alt="kno.li logo"
+            alt="cutefolio logo"
             width={56}
             height={56}
             style={{ width: 56, height: 56, objectFit: "cover" }}

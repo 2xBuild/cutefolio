@@ -9,6 +9,8 @@ export const APP_LOGO_PATH = "/logo.png";
 export const X_REQUEST_HOST = "x-request-host";
 
 export const FIRST_PARTY_HOSTS = new Set([
+  "cutefol.io",
+  "www.cutefol.io",
   "kno.li",
   "www.kno.li",
   "about.ec",

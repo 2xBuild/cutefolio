@@ -1,53 +1,97 @@
 {
   "template": "portfolio-3",
-  "img": "https://api.dicebear.com/7.x/avataaars/svg?seed=portfolio3",
+  "img": "https://api.dicebear.com/7.x/lorelei/svg?seed=sleek3",
   "img_alt": "Profile photo",
-  "heading_bold": "Hello, I am Maya",
-  "heading_light": "JavaScript Engineer",
-  "desc_1": "I build products for developers and startups.",
+  "heading_bold": "Ram",
+  "heading_light": "A Full Stack web developer.",
+  "desc_1": "I build interactive web apps using TypeScript, React, Next.js, and PostgreSQL. With a focus on UI design. Enthusiastic about modern tooling and driven by a keen eye for design.",
   "tech_stack": [
-    { "iconName": "SI Javascript", "visibleName": "JavaScript" },
     { "iconName": "SI Typescript", "visibleName": "TypeScript" },
     { "iconName": "SI React", "visibleName": "React" },
+    { "iconName": "SI Nextdotjs", "visibleName": "Next.js" },
+    { "iconName": "SI Postgresql", "visibleName": "PostgreSQL" },
     { "iconName": "SI Nodedotjs", "visibleName": "Node.js" }
   ],
-  "desc_2": "I like shipping small improvements every week.",
-  "desc_3": "Open to freelance and full-time roles.",
+  "desc_2": "5+ years shipping production software. I care about performance, developer experience, and user experience.",
+  "desc_3": "Open to contract and full-time roles. Let's talk!",
   "cta_buttons": [
-    { "type": "primary", "label": "Resume", "href": "https://example.com/resume.pdf" },
-    { "type": "secondary", "label": "Email me", "href": "mailto:maya@example.com" }
+    { "type": "primary", "label": "Resume / CV", "href": "https://example.com/resume.pdf", "icon": "SI FileText" },
+    { "type": "secondary", "label": "Get in touch", "href": "mailto:ram@example.com", "icon": "BI Send" }
   ],
   "social_links": [
-    { "type": "SI Github", "label": "GitHub", "href": "https://github.com/maya" },
-    { "type": "SI Linkedin", "label": "LinkedIn", "href": "https://linkedin.com/in/maya" },
-    { "type": "BI Envelope", "label": "Email", "href": "mailto:maya@example.com" }
+    { "type": "SI x", "label": "X", "href": "https://x.com/ramxcodes" },
+    { "type": "SI Linkedin", "label": "LinkedIn", "href": "https://linkedin.com/in/ramxcodes" },
+    { "type": "SI Github", "label": "GitHub", "href": "https://github.com/ramxcodes" },
+    { "type": "BI Envelope", "label": "Email", "href": "mailto:ram@example.com" }
   ],
   "experience": [
     {
-      "company": "PixelForge",
-      "role": "Frontend Engineer",
-      "period": "2023 - Present",
-      "location": "Remote",
+      "company": "Acme Corp",
+      "role": "Senior Full Stack Engineer",
+      "period": "2022 – Present",
+      "location": "San Francisco, CA",
+      "tech": ["TypeScript", "React", "PostgreSQL", "Next.js"],
       "bullets": [
-        "Built reusable UI systems in React",
-        "Improved onboarding funnel conversion by 18%"
+        "Led migration to Next.js, cutting load time by 40%",
+        "Shipped real-time collaboration features for 10k+ users"
       ]
+    },
+    {
+      "company": "StartupXYZ",
+      "role": "Full-stack Developer",
+      "period": "2020 – 2022",
+      "location": "Remote",
+      "tech": ["Node.js", "React", "MongoDB"],
+      "bullets": ["Built core product from 0 to 1", "Mentored 3 junior devs"]
     }
   ],
   "projects": [
     {
-      "title": "Snippet Atlas",
-      "description": "A searchable snippet manager for engineering teams.",
-      "href": "https://example.com/snippet-atlas",
-      "tech": ["Next.js", "PostgreSQL", "TypeScript"]
+      "title": "Sleek Portfolio",
+      "description": "A modern, responsive portfolio template built with Next.js, TypeScript, Tailwind CSS, and Shadcn UI.",
+      "href": "https://github.com/ramxcodes/sleek-portfolio",
+      "image": "https://images.unsplash.com/photo-1467232004584-a241de8bcf0d?auto=format&fit=crop&w=800&q=80",
+      "tech": ["Next.js", "TypeScript", "Tailwind", "Shadcn UI"]
+    },
+    {
+      "title": "Open Source CLI Tool",
+      "description": "CLI for scaffolding projects. 2k+ weekly downloads on npm.",
+      "href": "https://example.com/cli",
+      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+      "tech": ["TypeScript", "Node.js", "Oclif"]
     }
   ],
   "blogs": [
     {
-      "title": "How I Structure React Features",
-      "description": "A practical guide to scaling feature folders.",
-      "href": "https://blog.example.com/react-features",
-      "date": "Feb 2026"
+      "title": "How I Ship Faster",
+      "description": "My workflow for rapid iteration without breaking things.",
+      "href": "https://blog.example.com/ship-faster",
+      "date": "Jan 2024",
+      "tags": ["productivity", "engineering"]
+    },
+    {
+      "title": "TypeScript Tips for React",
+      "description": "Patterns I use daily to get the most out of TS.",
+      "href": "https://blog.example.com/ts-react",
+      "date": "Dec 2023",
+      "tags": ["typescript", "react"]
     }
-  ]
+  ],
+  "meeting_link": {
+    "label": "Book a meeting",
+    "href": "https://cal.com/ram"
+  },
+  "quote": {
+    "text": "The best code is the code you don't have to write.",
+    "author": "Jeff Atwood"
+  },
+  "theme": {
+    "colors": {
+      "bg": "#0b0b0b",
+      "text": "#f5f5f5",
+      "muted": "#a3a3a3",
+      "accent": "#ffffff",
+      "border": "#262626"
+    }
+  }
 }

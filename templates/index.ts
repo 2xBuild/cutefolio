@@ -7,6 +7,7 @@ import linkfolio1Banner from "@/templates/linkfolio/1/banner.png";
 import linkfolio2Banner from "@/templates/linkfolio/2/banner.png";
 import portfolio1Banner from "@/templates/portfolio/1/banner.png";
 import portfolio2Banner from "@/templates/portfolio/2/banner.png";
+import portfolio3Banner from "@/templates/portfolio/3/banner.png";
 
 export type { FieldRequirement } from "@/templates/types";
 
@@ -116,6 +117,21 @@ export const templates: TemplateEntry[] = [
     loadDummy: () => import("@/templates/portfolio/2/dummy.json").then((m) => m.default as Profile),
     loadReq: () => import("@/templates/portfolio/2/req").then((m) => m.fields),
   },
+  {
+    meta: {
+      id: "portfolio-3",
+      name: "Ramxfolio",
+      description: "Modern portfolio inspired by sleek-portfolio: dashed skill tags, clean sections, rounded cards",
+      category: "portfolio",
+      fonts: { heading: "system-ui, sans-serif", body: "system-ui, sans-serif" },
+      animation: "fade",
+      radius: "10px",
+      previewImage: portfolio3Banner,
+    },
+    load: () => import("@/templates/portfolio/3"),
+    loadDummy: () => import("@/templates/portfolio/3/dummy.json").then((m) => m.default as Profile),
+    loadReq: () => import("@/templates/portfolio/3/req").then((m) => m.fields),
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -125,7 +141,7 @@ export const templates: TemplateEntry[] = [
 const LEGACY_ID_MAP: Record<string, string> = {
   "1": "linkfolio-1",
   "2": "portfolio-1",
-  "3": "portfolio-2",
+  "3": "portfolio-3",
   "4": "portfolio-1",
   "5": "linkfolio-2",
 };

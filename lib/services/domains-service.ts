@@ -88,7 +88,7 @@ export async function addCustomDomain(input: {
 
   const dnsTarget = isVercelApiConfigured()
     ? VERCEL_DNS_TARGET
-    : (process.env.CUSTOM_DOMAIN_CNAME_TARGET ?? "cname.kno.li");
+    : (process.env.CUSTOM_DOMAIN_CNAME_TARGET ?? "cname.cutefolio");
 
   if (isVercelApiConfigured()) {
     const vercelResult = await addDomainToVercel(input.domain);

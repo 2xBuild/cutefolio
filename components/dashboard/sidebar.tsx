@@ -93,7 +93,7 @@ export function DashboardSidebar() {
                         className="h-7 w-7 shrink-0 rounded-full object-contain"
                     />
                     <span className="text-base font-bold tracking-tight text-foreground">
-                        kno.li
+                        cutefolio
                     </span>
                 </Link>
 

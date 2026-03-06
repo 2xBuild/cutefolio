@@ -4,9 +4,9 @@ import { ArrowLeft, Check, Crown, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Compare plans | kno.li",
+  title: "Compare plans | cutefolio",
   description:
-    "Compare Free, Pro, and Ultra hosted plans for kno.li portfolios.",
+    "Compare Free, Pro, and Ultra hosted plans for cutefolio portfolios.",
 };
 
 const PLAN_PRICING = {
@@ -99,7 +99,7 @@ export default function ComparePage() {
           Compare hosted plans
         </h1>
         <p className="mt-2 text-muted-foreground">
-          All portfolios are hosted on kno.li infrastructure.
+          All portfolios are hosted on cutefolio infrastructure.
         </p>
 
         <div className="mt-10 overflow-x-auto">

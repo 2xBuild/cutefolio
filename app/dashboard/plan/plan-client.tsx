@@ -35,7 +35,7 @@ const PLANS: Plan[] = [
     features: [
       "1 hosted app",
       "No analytics",
-      "Default domains (kno.li, etc.)",
+      "Default domains (cutefolio, etc.)",
     ],
   },
   {

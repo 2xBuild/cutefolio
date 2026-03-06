@@ -1,5 +1,5 @@
 const DOMAINS = [
-  "kno.li",
+  "cutefolio",
   "wanna-hire.me",
   "it-iz.me",
 ] as const;

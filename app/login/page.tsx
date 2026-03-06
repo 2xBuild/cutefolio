@@ -7,8 +7,8 @@ import { APP_LOGO_PATH } from "@/lib/constants";
 import { LoginProviders } from "./login-providers";
 
 export const metadata: Metadata = {
-    title: "Sign in · kno.li",
-    description: "Sign in to host your portfolio at kno.li",
+    title: "Sign in · cutefolio",
+    description: "Sign in to host your portfolio at cutefolio",
 };
 
 export default async function LoginPage({
@@ -52,7 +52,7 @@ export default async function LoginPage({
                         priority
                     />
                     <span className="text-2xl font-bold tracking-tight text-foreground">
-                        kno.li
+                        cutefolio
                     </span>
                 </Link>
 

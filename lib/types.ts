@@ -80,7 +80,10 @@ export interface Profile {
   img: string;
   img_alt: string;
   heading_bold: string;
+  /** Legacy secondary heading; for newer templates, prefer `title` below. */
   heading_light: string;
+  /** Title/role shown under the main name heading (e.g. "Frontend Developer"). */
+  title?: string;
   desc_1: string;
   tech_stack: (string | ProfileTech)[];
   desc_2: string;

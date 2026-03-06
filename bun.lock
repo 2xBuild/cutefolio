@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "kno.li",
+      "name": "cutefolio",
       "dependencies": {
         "@auth/drizzle-adapter": "^1.11.1",
         "@hookform/resolvers": "^5.2.2",

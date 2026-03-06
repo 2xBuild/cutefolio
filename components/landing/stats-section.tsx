@@ -25,7 +25,7 @@ export function StatsSection({
             label: "Live Apps",
             value: `${liveAppsCount}+`,
             icon: Globe,
-            description: "Profiles already hosted on kno.li.",
+            description: "Profiles already hosted on cutefolio.",
         },
         {
             label: "Total Views",

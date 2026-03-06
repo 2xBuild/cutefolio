@@ -72,7 +72,7 @@ export const appDomains = pgTable(
     status: domainStatusEnum("status").notNull().default("pending_verification"),
     verificationMethod: text("verification_method").notNull().default("txt"),
     verificationToken: text("verification_token").notNull(),
-    dnsTarget: text("dns_target").notNull().default("cname.kno.li"),
+    dnsTarget: text("dns_target").notNull().default("cname.cutefolio"),
     lastCheckedAt: timestamp("last_checked_at", { withTimezone: true, mode: "date" }),
     verifiedAt: timestamp("verified_at", { withTimezone: true, mode: "date" }),
     createdAt: timestamp("created_at", { withTimezone: true, mode: "date" })

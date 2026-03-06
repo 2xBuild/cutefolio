@@ -15,12 +15,12 @@ const LANDING_PLANS: PricingPlan[] = [
     id: "free",
     name: "Free",
     description:
-      "Ideal for trying kno.li with one app.",
+      "Ideal for trying cutefolio with one app.",
     monthlyPrice: 0,
     yearlyPrice: 0,
     features: [
-      "1 hosted app on kno.li",
-      "Cool in-house domains ( kno.li, about.ec, it-iz.me, wanna-hire.me )",
+      "1 hosted app on cutefolio",
+      "Cool in-house domains ( cutefolio, about.ec, it-iz.me, wanna-hire.me )",
       "Access to all templates",
     ],
     cta: { label: "Start free", href: "/dashboard/create-app" },

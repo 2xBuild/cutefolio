@@ -35,7 +35,7 @@ export function PortfoliosSection({ portfolios }: PortfoliosSectionProps) {
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.1 }}
                     >
-                        Explore some of the amazing profiles built and hosted on kno.li.
+                        Explore some of the amazing profiles built and hosted on cutefolio.
                     </motion.p>
                 </div>
 
@@ -43,8 +43,8 @@ export function PortfoliosSection({ portfolios }: PortfoliosSectionProps) {
                     {portfolios.map((portfolio, i) => {
                         const content = portfolio.currentContent?.content as any;
                         const name = content?.name ?? portfolio.app.slug;
-                        const bio = content?.bio ?? "A beautiful kno.li profile.";
-                        const url = `https://${portfolio.app.slug}.kno.li`;
+                        const bio = content?.bio ?? "A beautiful cutefolio profile.";
+                        const url = `https://${portfolio.app.slug}.cutefolio`;
 
                         return (
                             <motion.div
@@ -70,7 +70,7 @@ export function PortfoliosSection({ portfolios }: PortfoliosSectionProps) {
                                         <div>
                                             <h3 className="font-bold text-foreground">{name}</h3>
                                             <p className="text-sm text-muted-foreground">
-                                                kno.li/{portfolio.app.slug}
+                                                cutefolio/{portfolio.app.slug}
                                             </p>
                                         </div>
                                         <Button

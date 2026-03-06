@@ -122,7 +122,7 @@ export async function buildTemplateProfileOgImage(
   const headline = truncateText(
     profile.desc_1?.trim() ||
       profile.desc_2?.trim() ||
-      `${displayName} on kno.li`,
+      `${displayName} on cutefolio`,
     150
   );
   const description = truncateText(

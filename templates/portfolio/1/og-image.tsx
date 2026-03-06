@@ -65,9 +65,9 @@ export function renderPortfolioOneOgImage(data: PreparedOgProfile) {
       >
         {data.brandLogoSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={data.brandLogoSrc} alt="kno.li logo" width={18} height={18} />
+          <img src={data.brandLogoSrc} alt="cutefolio logo" width={18} height={18} />
         ) : null}
-        <span style={{ fontSize: 18, color: "#cbd5e1" }}>kno.li</span>
+        <span style={{ fontSize: 18, color: "#cbd5e1" }}>cutefolio</span>
       </div>
     </div>
   );

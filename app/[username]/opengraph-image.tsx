@@ -12,7 +12,7 @@ type OgImageProps = {
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-export const alt = "kno.li profile";
+export const alt = "cutefolio profile";
 export const size = OG_IMAGE_SIZE;
 export const contentType = OG_IMAGE_CONTENT_TYPE;
 

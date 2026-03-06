@@ -4,23 +4,23 @@ import { ArrowLeft, ChevronDown, CircleHelp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "FAQ · kno.li",
+  title: "FAQ · cutefolio",
   description:
-    "Frequently asked questions about kno.li: portfolios, linkfolios, custom domains, analytics, pricing, and more.",
+    "Frequently asked questions about cutefolio: portfolios, linkfolios, custom domains, analytics, pricing, and more.",
 };
 
 const FAQ_ITEMS = [
   {
-    q: "What is kno.li?",
-    a: "kno.li is a platform to host portfolios and linkfolios (link-in-bio pages) for yourself, your brand, or your SaaS. You get beautiful templates, optional custom domains, and built-in analytics—all on our infrastructure.",
+    q: "What is cutefolio?",
+    a: "cutefolio is a platform to host portfolios and linkfolios (link-in-bio pages) for yourself, your brand, or your SaaS. You get beautiful templates, optional custom domains, and built-in analytics—all on our infrastructure.",
   },
   {
     q: "How do I get started?",
-    a: "Sign in with Google, then create your first app from the dashboard. Pick a template, customize your content, and publish. Your profile will be live at kno.li/yourusername or on a custom domain if you're on Pro or Ultra.",
+    a: "Sign in with Google, then create your first app from the dashboard. Pick a template, customize your content, and publish. Your profile will be live at cutefolio/yourusername or on a custom domain if you're on Pro or Ultra.",
   },
   {
     q: "What's the difference between Free, Pro, and Ultra?",
-    a: "Free: 1 app, access to all templates, and in-house domains (kno.li, about.ec, it-iz.me, wanna-hire.me). Pro: up to 3 apps, full analytics (unique visitors, click tracking, country-wise traffic), and custom domain support. Ultra: up to 15 apps, full analytics, custom domains for all apps, dedicated support, and early access to new features.",
+    a: "Free: 1 app, access to all templates, and in-house domains (cutefolio, about.ec, it-iz.me, wanna-hire.me). Pro: up to 3 apps, full analytics (unique visitors, click tracking, country-wise traffic), and custom domain support. Ultra: up to 15 apps, full analytics, custom domains for all apps, dedicated support, and early access to new features.",
   },
   {
     q: "Can I use my own domain?",
@@ -28,7 +28,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How does analytics work?",
-    a: "We collect analytics in-house via kno.li APIs—no third-party tracking pixels. For Pro and Ultra plans, you get page views, unique visitors, link clicks, referrers, and country-wise traffic. Data uses hashed identifiers; we don't store raw personal identifiers.",
+    a: "We collect analytics in-house via cutefolio APIs—no third-party tracking pixels. For Pro and Ultra plans, you get page views, unique visitors, link clicks, referrers, and country-wise traffic. Data uses hashed identifiers; we don't store raw personal identifiers.",
   },
   {
     q: "What templates are available?",
@@ -65,7 +65,7 @@ export default function FaqPage() {
             Frequently asked questions
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Common questions and answers about kno.li.
+            Common questions and answers about cutefolio.
           </p>
         </header>
 

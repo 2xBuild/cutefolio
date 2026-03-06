@@ -2,8 +2,8 @@
   "template": "portfolio-1",
   "img": "https://api.dicebear.com/7.x/avataaars/svg?seed=portfolio1",
   "img_alt": "Profile photo",
-  "heading_bold": "Hi, I'm Ana:",
-  "heading_light": "Frontend Developer",
+  "heading_bold": "ana",
+  "title": "Frontend Developer",
   "desc_1": "I build products at the intersection of design and engineering. Currently focused on frontend web apps.",
   "tech_stack": [
     { "iconName": "SI Typescript", "visibleName": "TypeScript" },
@@ -13,7 +13,7 @@
     { "iconName": "SI Python", "visibleName": "Python" }
   ],
   "desc_2": "5+ years shipping production software. I care about performance, DX, and user experience.",
-  "desc_3": "Open to contract and full-time roles. Let's talk!",
+  "desc_3": "Open to contract and full-time roles.",
   "cta_buttons": [
     { "type": "primary", "label": "Resume", "href": "https://example.com/resume.pdf", "icon": "SI FileText" },
     { "type": "secondary", "label": "Get in touch", "href": "mailto:alex@example.com", "icon": "BI Send" }
@@ -73,14 +73,6 @@
       "tags": ["typescript", "react"]
     }
   ],
-  "meeting_link": {
-    "label": "Book a call",
-    "href": "https://cal.com/alex"
-  },
-  "quote": {
-    "text": "The best code is the code you don't have to write.",
-    "author": "Jeff Atwood"
-  },
   "theme": {
     "colors": {
       "bg": "#0b0b0b",

@@ -761,7 +761,7 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "default": "'cname.kno.li'"
+          "default": "'cname.cutefolio'"
         },
         "last_checked_at": {
           "name": "last_checked_at",

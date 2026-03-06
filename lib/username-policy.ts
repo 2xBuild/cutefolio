@@ -105,7 +105,7 @@ export function validateUsernamePolicy(
     return {
       ok: false,
       code: "reserved",
-      message: "That username is reserved by kno.li.",
+      message: "That username is reserved by cutefolio.",
     };
   }
 

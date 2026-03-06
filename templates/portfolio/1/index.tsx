@@ -22,18 +22,11 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
-/**
- * Portfolio 1 — Full Page
- *
- * Single column: dark/light toggle, intro + tech details, experience,
- * projects, blogs, meeting link, quote, footer.
- */
+/** Portfolio 1 — Full Page */
 export default function FullPageTemplate({ profile }: TemplateProps) {
   const hasExperience = profile.experience && profile.experience.length > 0;
   const hasProjects = profile.projects && profile.projects.length > 0;
   const hasBlogs = profile.blogs && profile.blogs.length > 0;
-  const hasMeeting = profile.meeting_link?.href;
-  const hasQuote = profile.quote?.text;
   const hasAvatar = Boolean(profile.img);
 
   return (
@@ -49,7 +42,7 @@ export default function FullPageTemplate({ profile }: TemplateProps) {
 
       <div className="mx-auto max-w-2xl px-4 pt-16">
         <section className="border-b border-border pb-12 pt-4">
-          <div className="flex items-start gap-4">
+          <div className="flex items-center gap-4">
             {hasAvatar && (
               <div className="mt-1 h-14 w-14 shrink-0 overflow-hidden rounded-full border border-border bg-muted sm:h-16 sm:w-16">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -60,14 +53,20 @@ export default function FullPageTemplate({ profile }: TemplateProps) {
                 />
               </div>
             )}
-            <h1
-              className={`text-3xl font-bold tracking-tight text-foreground sm:text-4xl ${HEADING_FONT_CLASS}`}
-            >
-              {profile.heading_bold}{" "}
-              <span className="font-normal text-muted-foreground">
-                {profile.heading_light}
-              </span>
-            </h1>
+            <div>
+              <h1
+                className={`text-3xl font-bold tracking-tight text-foreground sm:text-4xl ${HEADING_FONT_CLASS}`}
+              >
+                {profile.heading_bold}
+              </h1>
+              {profile.title && (
+                <p
+                  className={`mt-1 text-base font-medium text-muted-foreground ${HEADING_FONT_CLASS}`}
+                >
+                  {profile.title}
+                </p>
+              )}
+            </div>
           </div>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
             {profile.desc_1}
@@ -253,34 +252,6 @@ export default function FullPageTemplate({ profile }: TemplateProps) {
                 </li>
               ))}
             </ul>
-          </section>
-        )}
-
-        {hasMeeting && (
-          <section className="flex flex-col items-center border-b border-border py-12">
-            <SectionHeading>Let&apos;s talk</SectionHeading>
-            <Button
-              size="lg"
-              className="rounded-full bg-foreground text-background hover:bg-foreground/90"
-              asChild
-            >
-              <a href={profile.meeting_link!.href}>
-                {profile.meeting_link!.label}
-              </a>
-            </Button>
-          </section>
-        )}
-
-        {hasQuote && (
-          <section className="border-b border-border py-12">
-            <blockquote className="border-l-2 border-muted-foreground/50 pl-4 text-lg italic text-muted-foreground">
-              &ldquo;{profile.quote!.text}&rdquo;
-              {profile.quote!.author && (
-                <footer className="mt-2 not-italic text-sm text-foreground">
-                  — {profile.quote!.author}
-                </footer>
-              )}
-            </blockquote>
           </section>
         )}
 

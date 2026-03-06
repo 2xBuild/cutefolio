@@ -35,7 +35,7 @@ function buildFacts(): Fact[] {
       icon: Globe,
       value: FIRST_PARTY_DOMAIN_COUNT,
       label: "Domains",
-      detail: "4 Free domains : kno.li, about.ec, it-iz.me, wanna-hire.me",
+      detail: "4 Free domains : cutefolio, about.ec, it-iz.me, wanna-hire.me",
       color: "text-blue-500",
     },
     {

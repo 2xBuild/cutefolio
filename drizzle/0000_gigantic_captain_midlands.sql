@@ -104,7 +104,7 @@ CREATE TABLE "app_domains" (
 	"status" "domain_status" DEFAULT 'pending_verification' NOT NULL,
 	"verification_method" text DEFAULT 'txt' NOT NULL,
 	"verification_token" text NOT NULL,
-	"dns_target" text DEFAULT 'cname.kno.li' NOT NULL,
+	"dns_target" text DEFAULT 'cname.cutefolio' NOT NULL,
 	"last_checked_at" timestamp with time zone,
 	"verified_at" timestamp with time zone,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,

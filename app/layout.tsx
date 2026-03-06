@@ -7,14 +7,14 @@ import { APP_LOGO_PATH } from "@/lib/constants";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL ?? "https://kno.li"),
-  title: "kno.li",
+  metadataBase: new URL(process.env.SITE_URL ?? "https://cutefolio"),
+  title: "cutefolio",
   description:
-    "Build and host your portfolio on kno.li infrastructure with usernames, custom domains, and in-house analytics.",
+    "Build and host your cute folio.",
   openGraph: {
-    title: "kno.li",
+    title: "cutefolio",
     description:
-      "Build and host your portfolio on kno.li infrastructure with usernames, custom domains, and in-house analytics.",
+      "Build and host your cute folio.",
     images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
     type: "website",
   },

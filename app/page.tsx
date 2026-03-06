@@ -16,9 +16,9 @@ import { ProfileLinkTracker } from "@/components/analytics/profile-link-tracker"
 import { FIRST_PARTY_HOSTS, X_REQUEST_HOST } from "@/lib/constants";
 
 const DEFAULT_METADATA: Metadata = {
-  title: "kno.li | Host your portfolio",
+  title: "cutefolio | build and host your cute folio.",
   description:
-    "Host your portfolio at kno.li with beautiful templates and built-in analytics.",
+    "Build and host your cute folio.",
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -47,14 +47,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const ogImageUrl = `${protocol}://${host}/opengraph-image`;
 
   return {
-    title: `${displayName} | kno.li`,
+    title: `${displayName} | cutefolio`,
     description,
     icons: {
       icon: imgUrl,
       apple: imgUrl,
     },
     openGraph: {
-      title: `${displayName} | kno.li`,
+      title: `${displayName} | cutefolio`,
       description,
       type: "profile",
       images: [
@@ -68,7 +68,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${displayName} | kno.li`,
+      title: `${displayName} | cutefolio`,
       description,
       images: [ogImageUrl],
     },

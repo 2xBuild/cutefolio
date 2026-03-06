@@ -6,7 +6,7 @@ import {
   readPublicImageAsDataUrl,
 } from "@/lib/og/shared";
 
-const BRAND_NAME = "kno.li";
+const BRAND_NAME = "cutefolio";
 const TAGLINE = "Let the world know you better";
 
 export async function buildMainSiteOgImage(): Promise<Response> {
@@ -61,7 +61,7 @@ export async function buildMainSiteOgImage(): Promise<Response> {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={logoSrc}
-                  alt="kno.li logo"
+                  alt="cutefolio logo"
                   width={140}
                   height={140}
                   style={{
