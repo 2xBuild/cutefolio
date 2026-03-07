@@ -20,7 +20,7 @@ interface Fact {
   color: string;
 }
 
-const FIRST_PARTY_DOMAIN_COUNT = 4;
+const FIRST_PARTY_DOMAIN_COUNT = 5;
 
 function buildFacts(): Fact[] {
   const portfolioCount = templates.filter(
