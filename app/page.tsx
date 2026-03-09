@@ -142,9 +142,24 @@ export default async function Home() {
     <div className="bg-background font-landing">
       <HeroSection
         githubPill={
-          <div className="flex items-center justify-center gap-3">
-            <GitHubPill />
-            <ThemeToggle />
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex items-center justify-center gap-3">
+              <GitHubPill />
+              <ThemeToggle />
+            </div>
+            <a
+              href="https://www.producthunt.com/products/cutefolio?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-cutefolio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 mb-1"
+            >
+              <img
+                alt="cutefolio - build portfolios that actually look cute. | Product Hunt"
+                width="250"
+                height="54"
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1092201&amp;theme=neutral&amp;t=1773042311297"
+              />
+            </a>
           </div>
         }
       />
