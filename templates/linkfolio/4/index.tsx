@@ -225,11 +225,11 @@ function buildWidget(link: ProfileSocialLink): WidgetCard {
 }
 
 /**
- * Linkfolio 4 — Bento Widgets
+ * Linkfolio 4 — Widgetfolio
  *
  * Bento-style social cards with platform-tinted 3D fills.
  */
-export default function BentoWidgetsTemplate({ profile }: TemplateProps) {
+export default function WidgetfolioTemplate({ profile }: TemplateProps) {
   const cardCornerStyle = resolveCornerStyle(
     (profile as TemplateProps["profile"] & { card_corner_style?: string }).card_corner_style,
   );
@@ -359,7 +359,7 @@ export default function BentoWidgetsTemplate({ profile }: TemplateProps) {
               "mt-6 border border-dashed border-border/60 bg-card/70 p-10 text-center text-sm text-muted-foreground",
             )}
           >
-            Add social links to show your bento widgets.
+            Add social links to show your widgetfolio.
           </div>
         )}
       </div>

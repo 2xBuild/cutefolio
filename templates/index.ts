@@ -105,7 +105,7 @@ export const templates: TemplateEntry[] = [
   {
     meta: {
       id: "linkfolio-4",
-      name: "Bento Widgets",
+      name: "Widgetfolio",
       description: "Bento-style social cards with platform accents, handles, and action buttons",
       category: "linkfolio",
       fonts: { heading: "Outfit, sans-serif", body: "Manrope, sans-serif" },
